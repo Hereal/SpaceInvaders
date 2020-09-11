@@ -58,18 +58,23 @@ namespace SpaceInvaders
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             graphics.DrawImage(image, (int)x, (int)y, image.Width, image.Height);
+            ArrayGraphics.Draw(this, image, (int)x, (int)y);
         }
 
         public override bool IsAlive()
         {
             return alive;
         }
-        public override void goRight()
+        public override void goRight(Game gameInstance)
         {
+            if ( x+image.Width+playerSpeed>gameInstance.gameSize.Width)
+                return;
             x += playerSpeed;
         }
-        public override void goLeft()
+        public override void goLeft(Game gameInstance)
         {
+            if (x + playerSpeed < 0 )
+                return;
             x -= playerSpeed;
         }
 

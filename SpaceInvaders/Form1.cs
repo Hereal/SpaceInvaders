@@ -117,13 +117,15 @@ namespace SpaceInvaders
 
         private void GameForm_Load(object sender, EventArgs e)
         {
-            GameObject newObject = new Player(game.gameSize.Width / 2, game.gameSize.Height-50);
+            Console.WriteLine("Taille table: " + game.gameSize.Width + " x " + game.gameSize.Height);
+            ArrayGraphics.pixelsArray = new GameObject[game.gameSize.Width, game.gameSize.Height];
+            Game.player = new Player(game.gameSize.Width / 2, game.gameSize.Height - 50);
             // add it to the game
-            game.AddNewGameObject(newObject);
 
-            
+
             // add it to the game
-            game.AddNewGameObject(new Ship(game.gameSize.Width / 2, 50));
+            ShipClan clan = new ShipClan(8, 8);
+            clan.InitClan(game);
         }
     }
 }

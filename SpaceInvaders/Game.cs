@@ -22,6 +22,8 @@ namespace SpaceInvaders
         /// </summary>
         private HashSet<GameObject> pendingNewGameObjects = new HashSet<GameObject>();
 
+        
+
         /// <summary>
         /// Schedule a new object for addition in the game.
         /// The new object will be added at the beginning of the next update loop
@@ -57,6 +59,10 @@ namespace SpaceInvaders
         /// A shared black brush
         /// </summary>
         private static Brush blackBrush = new SolidBrush(Color.Black);
+
+        public static Player player;
+
+        
 
         /// <summary>
         /// A shared simple font
@@ -109,6 +115,7 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
+            player.Draw(this, g);
             foreach (GameObject gameObject in gameObjects)
                 gameObject.Draw(this, g);       
         }
@@ -126,43 +133,32 @@ namespace SpaceInvaders
             // if space is pressed
             if (keyPressed.Contains(Keys.Space))
             {
-                foreach (GameObject gameObject in gameObjects)
-                {
-                    gameObject.shoot(this);
-                }
-                // release key space (no autofire)
-                //ReleaseKey(Keys.Space);
+                    player.shoot(this);
             }
 
             // if right is pressed
             if (keyPressed.Contains(Keys.Right))
             {
-                foreach (GameObject gameObject in gameObjects)
-                {
-                    gameObject.goRight();
-                }
-                //ReleaseKey(Keys.Right);
+                player.goRight(game);
             }
 
             // if left is pressed
             if (keyPressed.Contains(Keys.Left))
             {
-                foreach (GameObject gameObject in gameObjects)
-                {
-                    gameObject.goLeft();
-                }
-                //ReleaseKey(Keys.Left);
+                player.goLeft(game);
             }
 
             // update each game object
             foreach (GameObject gameObject in gameObjects)
             {
+                player.Update(this, deltaT);
                 gameObject.Update(this, deltaT);
             }
 
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
         }
+
         #endregion
     }
 }

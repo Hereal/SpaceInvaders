@@ -39,11 +39,11 @@ namespace SpaceInvaders
         /// <summary>
         /// Move the game objet to the right
         /// </summary>
-        public abstract void goRight();
+        public abstract void goRight(Game gameInstance);
         /// <summary>
         /// Move the game objet to the left
         /// </summary>
-        public abstract void goLeft();
+        public abstract void goLeft(Game gameInstance);
 
         /// <summary>
         /// shoot
