@@ -59,7 +59,10 @@ namespace SpaceInvaders.Properties {
                 resourceCulture = value;
             }
         }
+
+
         
+
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
@@ -216,6 +219,18 @@ namespace SpaceInvaders.Properties {
         internal static System.Drawing.Bitmap shoot4 {
             get {
                 object obj = ResourceManager.GetObject("shoot4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap player
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("player", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -9,7 +9,7 @@ namespace SpaceInvaders
     /// <summary>
     /// Dummy class for demonstration
     /// </summary>
-    class BalleQuiTombe : GameObject
+    class Missile : GameObject
     {
         #region Fields
         /// <summary>
@@ -18,21 +18,18 @@ namespace SpaceInvaders
         private double x, y;
 
         /// <summary>
-        /// Radius
-        /// </summary>
-        private double radius = 10;
-
-        /// <summary>
         /// Ball speed in pixel/second
         /// </summary>
-        private double ballSpeed = 100;
+        private double missileSpeed = 1;
 
         /// <summary>
         /// A shared black pen for drawing
         /// </summary>
-        private static Pen pen = new Pen(Color.White);
+        private Bitmap image = SpaceInvaders.Properties.Resources.shoot1;
 
         private bool alive = true;
+
+        private bool up = true;
 
         #endregion
 
@@ -42,10 +39,11 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
-        public BalleQuiTombe(double x, double y) : base()
+        public Missile(double x, double y,bool up) : base()
         {
             this.x = x;
             this.y = y;
+            this.up = up;
         }
         #endregion
 
@@ -53,31 +51,39 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            y += ballSpeed * deltaT;
-            if (y > gameInstance.gameSize.Height)
+            //Deplacement du missile
+            if (up) {
+                y -= missileSpeed; 
+            }
+            else { 
+                y += missileSpeed; 
+            }
+            //Destruction du missile s'il sort de la fenetre
+            if (y < 0 - image.Height || y > gameInstance.gameSize.Height)
+            {
                 alive = false;
+            }
         }
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            float xmin = (float)(x - radius);
-            float ymin = (float)(y - radius);
-            float width = (float)(2 * radius);
-            float height = (float)(2 * radius);
-            graphics.DrawEllipse(pen, xmin, ymin, width, height);
+            graphics.DrawImage(image, (int)x, (int)y, image.Width, image.Height);
         }
 
         public override bool IsAlive()
         {
+            
             return alive;
         }
         public override void goRight()
         {
-            x += 10;
         }
         public override void goLeft()
         {
-            x -= 10;
+        }
+
+        public override void shoot(Game gameInstance)
+        {
         }
 
         #endregion

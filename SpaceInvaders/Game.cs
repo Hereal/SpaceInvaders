@@ -126,12 +126,12 @@ namespace SpaceInvaders
             // if space is pressed
             if (keyPressed.Contains(Keys.Space))
             {
-                // create new BalleQuiTombe
-                GameObject newObject = new BalleQuiTombe(gameSize.Width / 2, 0);
-                // add it to the game
-                AddNewGameObject(newObject);
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    gameObject.shoot(this);
+                }
                 // release key space (no autofire)
-                ReleaseKey(Keys.Space);
+                //ReleaseKey(Keys.Space);
             }
 
             // if right is pressed
@@ -141,7 +141,7 @@ namespace SpaceInvaders
                 {
                     gameObject.goRight();
                 }
-                ReleaseKey(Keys.Right);
+                //ReleaseKey(Keys.Right);
             }
 
             // if left is pressed
@@ -151,7 +151,7 @@ namespace SpaceInvaders
                 {
                     gameObject.goLeft();
                 }
-                ReleaseKey(Keys.Left);
+                //ReleaseKey(Keys.Left);
             }
 
             // update each game object

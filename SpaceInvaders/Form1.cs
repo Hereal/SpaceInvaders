@@ -117,9 +117,13 @@ namespace SpaceInvaders
 
         private void GameForm_Load(object sender, EventArgs e)
         {
-            GameObject newObject = new Player(game.gameSize.Width / 2, 0);
+            GameObject newObject = new Player(game.gameSize.Width / 2, game.gameSize.Height-50);
             // add it to the game
             game.AddNewGameObject(newObject);
+
+            
+            // add it to the game
+            game.AddNewGameObject(new Ship(game.gameSize.Width / 2, 50));
         }
     }
 }

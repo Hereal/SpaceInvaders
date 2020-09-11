@@ -45,5 +45,11 @@ namespace SpaceInvaders
         /// </summary>
         public abstract void goLeft();
 
+        /// <summary>
+        /// shoot
+        /// </summary>
+        public abstract void shoot(Game gameInstance);
+
+
     }
 }

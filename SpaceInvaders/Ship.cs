@@ -9,7 +9,7 @@ namespace SpaceInvaders
     /// <summary>
     /// Dummy class for demonstration
     /// </summary>
-    class Player : GameObject
+    class Ship : GameObject
     {
         #region Fields
         /// <summary>
@@ -20,18 +20,16 @@ namespace SpaceInvaders
         /// <summary>
         /// Ball speed in pixel/second
         /// </summary>
-        private double playerSpeed = 1;
+        private double playerSpeed = 10;
 
         /// <summary>
         /// A shared black pen for drawing
         /// </summary>
-        private Bitmap image = SpaceInvaders.Properties.Resources.player;
+        private Bitmap image = SpaceInvaders.Properties.Resources.ship1;
 
         private bool alive = true;
 
         private Missile missile = null;
-
-        private Random rnd = new Random();
 
         #endregion
 
@@ -41,7 +39,7 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
-        public Player(double x, double y) : base()
+        public Ship(double x, double y) : base()
         {
             this.x = x;
             this.y = y;
@@ -52,7 +50,7 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-
+            shoot(gameInstance);
         }
 
         public override void Draw(Game gameInstance, Graphics graphics)
@@ -66,22 +64,20 @@ namespace SpaceInvaders
         }
         public override void goRight()
         {
-            x += playerSpeed;
         }
         public override void goLeft()
         {
-            x -= playerSpeed;
         }
 
         public override void shoot(Game gameInstance)
         {
             if (missile == null) {
-                missile = new Missile((int)(x + (image.Width / 2.0)), y, true);
+                missile = new Missile((int)(x + (image.Width / 2.0)), y, false);
                 gameInstance.AddNewGameObject(missile);
             }
             else if (!missile.IsAlive())
             {
-                missile = new Missile((int)(x + (image.Width / 2.0)), y, true);
+                missile = new Missile((int)(x + (image.Width / 2.0)), y, false);
                 gameInstance.AddNewGameObject(missile);
             }
         }
