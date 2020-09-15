@@ -1,4 +1,6 @@
-﻿namespace SpaceInvaders
+﻿using System.Drawing;
+
+namespace SpaceInvaders
 {
     partial class GameForm
     {

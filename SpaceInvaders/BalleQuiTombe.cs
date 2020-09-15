@@ -9,7 +9,7 @@ namespace SpaceInvaders
     /// <summary>
     /// Dummy class for demonstration
     /// </summary>
-    class Player : GameObject
+    class BalleQuiTombe : GameObject
     {
         #region Fields
         /// <summary>
@@ -18,20 +18,21 @@ namespace SpaceInvaders
         private double x, y;
 
         /// <summary>
+        /// Radius
+        /// </summary>
+        private double radius = 10;
+
+        /// <summary>
         /// Ball speed in pixel/second
         /// </summary>
-        private double playerSpeed = 1;
+        private double ballSpeed = 100;
 
         /// <summary>
         /// A shared black pen for drawing
         /// </summary>
-        private Bitmap image = SpaceInvaders.Properties.Resources.player;
+        private static Pen pen = new Pen(Color.Black);
 
         private bool alive = true;
-
-        private Missile missile = null;
-
-        private Random rnd = new Random();
 
         #endregion
 
@@ -41,7 +42,7 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
-        public Player(double x, double y) : base()
+        public BalleQuiTombe(double x, double y) : base()
         {
             this.x = x;
             this.y = y;
@@ -52,43 +53,37 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-
+            y += ballSpeed * deltaT;
+            if (y > gameInstance.gameSize.Height)
+                alive = false;
         }
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            graphics.DrawImage(image, (int)x, (int)y, image.Width, image.Height);
-            ArrayGraphics.Draw(this, image, (int)x, (int)y);
+            float xmin = (float)(x - radius);
+            float ymin = (float)(y - radius);
+            float width = (float)(2 * radius);
+            float height = (float)(2 * radius);
+            graphics.DrawEllipse(pen, xmin, ymin, width, height);
         }
 
         public override bool IsAlive()
         {
             return alive;
         }
-        public override void goRight(Game gameInstance)
+
+        public override void MoveRight()
         {
-            if ( x+image.Width+playerSpeed>gameInstance.gameSize.Width)
-                return;
-            x += playerSpeed;
+            
         }
-        public override void goLeft(Game gameInstance)
+        public override void MoveLeft()
         {
-            if (x + playerSpeed < 0 )
-                return;
-            x -= playerSpeed;
+
         }
 
-        public override void shoot(Game gameInstance)
+        public override void Shoot()
         {
-            if (missile == null) {
-                missile = new Missile((int)(x + (image.Width / 2.0)), y, true);
-                gameInstance.AddNewGameObject(missile);
-            }
-            else if (!missile.IsAlive())
-            {
-                missile = new Missile((int)(x + (image.Width / 2.0)), y, true);
-                gameInstance.AddNewGameObject(missile);
-            }
+
         }
 
         #endregion

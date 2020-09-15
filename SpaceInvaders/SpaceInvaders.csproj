@@ -46,12 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrayGraphics.cs" />
-    <Compile Include="Vecteur2D.cs" />
-    <Compile Include="Missile.cs" />
-    <Compile Include="ShipClan.cs" />
-    <Compile Include="Ship.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="GameObject\Missile.cs" />
+    <Compile Include="GameObject\Ship.cs" />
+    <Compile Include="GameObject\Player.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +57,8 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="Manager\GraphManager.cs" />
+    <Compile Include="Manager\Utils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -87,15 +86,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\shoot2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\shoot3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\shoot4.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\bonus.png" />
   </ItemGroup>
   <ItemGroup>
@@ -105,38 +95,38 @@
     <None Include="Resources\bunker.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ship1.png" />
+    <Content Include="Resources\arcade.png" />
+    <Content Include="Resources\explosion.png" />
+    <Content Include="Resources\motherShip.png" />
+    <Content Include="Resources\player.png" />
+    <Content Include="Resources\ship10.png" />
+    <Content Include="Resources\ship11.png" />
+    <Content Include="Resources\ship20.png" />
+    <Content Include="Resources\ship21.png" />
+    <Content Include="Resources\ship30.png" />
+    <Content Include="Resources\ship31.png" />
+    <Content Include="Resources\shot10.png" />
+    <Content Include="Resources\shot11.png" />
+    <Content Include="Resources\shot12.png" />
+    <Content Include="Resources\shot13.png" />
+    <Content Include="Resources\shot20.png" />
+    <Content Include="Resources\shot21.png" />
+    <Content Include="Resources\shot22.png" />
+    <Content Include="Resources\shot23.png" />
+    <Content Include="Resources\shot30.png" />
+    <Content Include="Resources\shot31.png" />
+    <Content Include="Resources\shot32.png" />
+    <Content Include="Resources\shot33.png" />
+    <Content Include="Resources\sound\explosion.wav" />
+    <Content Include="Resources\sound\fastinvader1.wav" />
+    <Content Include="Resources\sound\fastinvader2.wav" />
+    <Content Include="Resources\sound\fastinvader3.wav" />
+    <Content Include="Resources\sound\fastinvader4.wav" />
+    <Content Include="Resources\sound\invaderkilled.wav" />
+    <Content Include="Resources\sound\shoot.wav" />
+    <Content Include="Resources\sound\ufo_lowpitch.wav" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ship2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ship3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ship4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ship5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ship6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ship7.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ship8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ship9.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\shoot1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\player.png" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -36,20 +36,17 @@ namespace SpaceInvaders
         /// <returns>Am I alive ?</returns>
         public abstract bool IsAlive();
 
-        /// <summary>
-        /// Move the game objet to the right
-        /// </summary>
-        public abstract void goRight(Game gameInstance);
-        /// <summary>
-        /// Move the game objet to the left
-        /// </summary>
-        public abstract void goLeft(Game gameInstance);
+        public abstract void Kill();
 
-        /// <summary>
-        /// shoot
-        /// </summary>
-        public abstract void shoot(Game gameInstance);
+        public abstract void MoveRight(Game gameInstance, double deltaT);
 
+        public abstract void MoveLeft(Game gameInstance, double deltaT);
+
+        public abstract void Shoot(Game gameInstance, double deltaT);
+
+        public abstract Bitmap GetImage();
+
+        public abstract Point GetCoord();
 
     }
 }

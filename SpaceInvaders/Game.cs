@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
+using SpaceInvaders.Manager;
 
 namespace SpaceInvaders
 {
@@ -21,8 +22,6 @@ namespace SpaceInvaders
         /// Set of new game objects scheduled for addition to the game
         /// </summary>
         private HashSet<GameObject> pendingNewGameObjects = new HashSet<GameObject>();
-
-        
 
         /// <summary>
         /// Schedule a new object for addition in the game.
@@ -60,14 +59,12 @@ namespace SpaceInvaders
         /// </summary>
         private static Brush blackBrush = new SolidBrush(Color.Black);
 
-        public static Player player;
-
-        
-
         /// <summary>
         /// A shared simple font
         /// </summary>
         private static Font defaultFont = new Font("Times New Roman", 24, FontStyle.Bold, GraphicsUnit.Pixel);
+
+        public static Player player;
         #endregion
 
 
@@ -115,9 +112,14 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
+            
             player.Draw(this, g);
             foreach (GameObject gameObject in gameObjects)
-                gameObject.Draw(this, g);       
+                gameObject.Draw(this, g);
+            int start = DateTime.Now.Millisecond;
+            GraphManager.Draw(this, g);
+            
+            //Console.WriteLine("frameTime: " + (DateTime.Now.Millisecond - start));
         }
 
         /// <summary>
@@ -133,32 +135,29 @@ namespace SpaceInvaders
             // if space is pressed
             if (keyPressed.Contains(Keys.Space))
             {
-                    player.shoot(this);
+                player.Shoot(game, deltaT);
             }
-
-            // if right is pressed
-            if (keyPressed.Contains(Keys.Right))
-            {
-                player.goRight(game);
-            }
-
-            // if left is pressed
+            // if space is pressed
             if (keyPressed.Contains(Keys.Left))
             {
-                player.goLeft(game);
+                player.MoveLeft(game, deltaT);
+            }
+            // if space is pressed
+            if (keyPressed.Contains(Keys.Right))
+            {
+                player.MoveRight(game, deltaT);
             }
 
             // update each game object
+            player.Update(this, deltaT);
             foreach (GameObject gameObject in gameObjects)
             {
-                player.Update(this, deltaT);
                 gameObject.Update(this, deltaT);
             }
 
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
         }
-
         #endregion
     }
 }
