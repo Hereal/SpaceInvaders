@@ -66,20 +66,59 @@ namespace SpaceInvaders
                 {
                     if (y > gm.GetCoord().Y && y <= gm.GetImage().Height + gm.GetCoord().Y)
                     {
-                        if (up && gm.GetType().ToString().Equals("SpaceInvaders.Ship"))
+                        bool colision = false;
+                        for(int i= 0; i < image.Width; i++)
                         {
-                            gm.Kill();
-                            this.alive = false;
+                            for(int j = 0; j < image.Height; j++)
+                            {
+                                if (image.GetPixel(i, j).A > 150 && gm.Equals(this) == false)
+                                {
+                                    if(gm.GetImage().GetPixel(((int)x+gm.GetCoord().X)-gm.GetCoord().X, ((int)x + gm.GetCoord().X) - gm.GetCoord().Y).A>150){
+                                        colision = false;
+                                        break;
+                                       }
+                                }
+                            }
                         }
-                        else if (gm.GetType().ToString().Equals("SpaceInvaders.Missile") && gm.Equals(this)==false)
+
+
+
+
+
+
+
+
+
+
+
+                        if (up && gm is Ship&& colision)
                         {
-                            gm.Kill();
-                            this.alive = false;
+
+
+                            Color pixel = gm.GetImage().GetPixel((int)x-gm.GetCoord().X, (int)y - gm.GetCoord().Y);
+                            if (pixel.A > 150) {
+                                gm.Kill();
+                                this.alive = false;
+                            }
+                            
                         }
-                        else if (!up && gm.GetType().ToString().Equals("SpaceInvaders.Player"))
+                        else if (gm is Missile && colision)
                         {
-                            //gm.Kill();
-                            this.alive = false;
+                            Color pixel = gm.GetImage().GetPixel((int)x - gm.GetCoord().X, (int)y - gm.GetCoord().Y);
+                            if (pixel.A > 150)
+                            {
+                                gm.Kill();
+                                this.alive = false;
+                            }
+                        }
+                        else if (!up && gm is Player && colision)
+                        {
+                            Color pixel = gm.GetImage().GetPixel((int)x - gm.GetCoord().X, (int)y - gm.GetCoord().Y);
+                            if (pixel.A > 150)
+                            {
+                                gm.Kill();
+                                this.alive = false;
+                            }
                         }
                     }
                 }

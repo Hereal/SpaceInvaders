@@ -15,8 +15,8 @@ namespace SpaceInvaders.Manager
             ChangeColor(gameInstance);
             Bitmap arcade = SpaceInvaders.Properties.Resources.arcade;
             Graphics arcadeGraphics = Graphics.FromImage(arcade);
-            arcadeGraphics.DrawImage(bufferedImage, 77, 132, 297, 219);
-            arcadeGraphics.DrawImage(SpaceInvaders.Properties.Resources.arcade, 0, 0, 448, 411);
+            arcadeGraphics.DrawImage(bufferedImage, 5, 28, 297, 219);
+            arcadeGraphics.DrawImage(SpaceInvaders.Properties.Resources.arcade, 0, 0, 307, 307);
 
             int min = gameInstance.gameSize.Width;
             if (gameInstance.gameSize.Height < min)

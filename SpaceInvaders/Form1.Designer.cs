@@ -43,7 +43,7 @@ namespace SpaceInvaders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(807, 745);
+            this.ClientSize = new System.Drawing.Size(745, 745);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -55,6 +55,7 @@ namespace SpaceInvaders
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyUp);
             this.ResumeLayout(false);
+            this.Size = new Size(745, 745);
 
         }
 
