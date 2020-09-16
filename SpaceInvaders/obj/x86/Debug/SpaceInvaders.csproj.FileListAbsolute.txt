@@ -7,3 +7,12 @@ C:\Users\Herea\Desktop\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.exe
 C:\Users\Herea\Desktop\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.pdb
 C:\Users\Herea\Desktop\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.exe
 C:\Users\Herea\Desktop\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.pdb
+C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.exe
+C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.pdb
+C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.csprojAssemblyReference.cache
+C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.GameForm.resources
+C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.Properties.Resources.resources
+C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.csproj.GenerateResource.cache
+C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.csproj.CoreCompileInputs.cache
+C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.exe
+C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.pdb
