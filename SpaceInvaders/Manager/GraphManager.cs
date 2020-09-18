@@ -12,7 +12,7 @@ namespace SpaceInvaders.Manager
         private static Random rnd = new Random(DateTime.Now.Millisecond);
         public static void Draw(Game gameInstance, Graphics graphics)
         {
-            ChangeColor(gameInstance);
+            //ChangeColor(gameInstance);
             Bitmap arcade = SpaceInvaders.Properties.Resources.arcade;
             Graphics arcadeGraphics = Graphics.FromImage(arcade);
             arcadeGraphics.DrawImage(bufferedImage, 5, 28, 297, 219);
@@ -32,7 +32,7 @@ namespace SpaceInvaders.Manager
         public static void DrawBufferedImage(Game gameInstance,Bitmap image, int x, int y)
         {
             Graphics g = Graphics.FromImage(bufferedImage);
-            g.DrawImage(image, (int)x, (int)y);
+            g.DrawImage(image, (int)x, (int)y,image.Width,image.Height);
         }
 
         public static void ChangeColor(Game gameInstance)

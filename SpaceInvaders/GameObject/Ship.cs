@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using SpaceInvaders.Manager;
+using System.Windows.Media;
 
 namespace SpaceInvaders
 {
@@ -34,7 +35,7 @@ namespace SpaceInvaders
 
         private Missile missile = null;
 
-        private System.Media.SoundPlayer player;
+        private MediaPlayer media = new MediaPlayer();
 
         #endregion
 
@@ -46,9 +47,8 @@ namespace SpaceInvaders
         /// <param name="y">start position y</param>
         public Ship(double x, double y) : base()
         {
-            image = SpaceInvaders.Properties.Resources.ship20;
+            image = SpaceInvaders.Properties.Resources.tieFighter;
             imageExplosion = SpaceInvaders.Properties.Resources.explosion;
-            player = new System.Media.SoundPlayer(@"..\..\Resources\sound\shoot.wav");
             killTimer = 0;
             this.x = x;
             this.y = y;
@@ -107,9 +107,10 @@ namespace SpaceInvaders
         {
             if (missile == null || missile.IsAlive() == false)
             {
-                missile = new Missile(x + 5, y, false);
+                media.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
+                media.Play();
+                missile = new Missile(x + 7, y+9, false);
                 gameInstance.AddNewGameObject(missile);
-                player.Play();
             }
         }
         public override Bitmap GetImage()

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Windows.Media;
+using System.IO;
 
 namespace SpaceInvaders
 {
@@ -29,6 +31,9 @@ namespace SpaceInvaders
         /// Last update time
         /// </summary>
         long lastTime = 0;
+
+
+        MediaPlayer theme = new MediaPlayer();
         #endregion
            
         #endregion
@@ -57,7 +62,7 @@ namespace SpaceInvaders
         {
             BufferedGraphics bg = BufferedGraphicsManager.Current.Allocate(e.Graphics, e.ClipRectangle);
             Graphics g = bg.Graphics;
-            g.Clear(Color.Black);
+            g.Clear(System.Drawing.Color.Black);
 
             game.Draw(g);
 
@@ -117,10 +122,12 @@ namespace SpaceInvaders
 
         private void GameForm_Load(object sender, EventArgs e)
         {
-            Game.player = new Player(142, 200);
+            Game.player = new Player(142, 190);
             game.AddNewGameObject(Game.player);
 
             game.AddNewGameObject(new Ship(30, 9));
+            theme.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\theme.wav")));
+            theme.Play();
         }
     }
 }

@@ -39,7 +39,14 @@ namespace SpaceInvaders
         /// <param name="y">start position y</param>
         public Missile(double x, double y,bool up) : base()
         {
-            image = SpaceInvaders.Properties.Resources.shot30;
+            if (up)
+            {
+                image = SpaceInvaders.Properties.Resources.shotUp;
+            }
+            else
+            {
+                image = SpaceInvaders.Properties.Resources.shotDown;
+            }
             this.x = x;
             this.y = y;
             this.up = up;
@@ -73,10 +80,10 @@ namespace SpaceInvaders
                             {
                                 if (image.GetPixel(i, j).A > 150 && gm.Equals(this) == false)
                                 {
-                                    if(gm.GetImage().GetPixel(((int)x+gm.GetCoord().X)-gm.GetCoord().X, ((int)x + gm.GetCoord().X) - gm.GetCoord().Y).A>150){
+                                    /*if(gm.GetImage().GetPixel(((int)x+gm.GetCoord().X)-gm.GetCoord().X, ((int)x + gm.GetCoord().X) - gm.GetCoord().Y).A>150){
                                         colision = false;
                                         break;
-                                       }
+                                       }*/
                                 }
                             }
                         }

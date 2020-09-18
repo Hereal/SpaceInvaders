@@ -50,6 +50,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -60,6 +61,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObject\Missile.cs" />
@@ -77,20 +79,20 @@
     <Compile Include="Manager\Utils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Vecteur2D.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -103,37 +105,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bonus.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\bonus2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\bunker.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Resources\arcade.png" />
     <Content Include="Resources\explosion.png" />
-    <Content Include="Resources\motherShip.png" />
     <Content Include="Resources\player.png" />
-    <Content Include="Resources\ship10.png" />
-    <Content Include="Resources\ship11.png" />
-    <Content Include="Resources\ship20.png" />
-    <Content Include="Resources\ship21.png" />
-    <Content Include="Resources\ship30.png" />
-    <Content Include="Resources\ship31.png" />
-    <Content Include="Resources\shot10.png" />
-    <Content Include="Resources\shot11.png" />
-    <Content Include="Resources\shot12.png" />
-    <Content Include="Resources\shot13.png" />
-    <Content Include="Resources\shot20.png" />
-    <Content Include="Resources\shot21.png" />
-    <Content Include="Resources\shot22.png" />
-    <Content Include="Resources\shot23.png" />
-    <Content Include="Resources\shot30.png" />
-    <Content Include="Resources\shot31.png" />
-    <Content Include="Resources\shot32.png" />
-    <Content Include="Resources\shot33.png" />
+    <None Include="Resources\shotUp.png" />
+    <Content Include="Resources\shotDown.png" />
     <Content Include="Resources\sound\explosion.wav" />
     <Content Include="Resources\sound\fastinvader1.wav" />
     <Content Include="Resources\sound\fastinvader2.wav" />
@@ -142,6 +118,7 @@
     <Content Include="Resources\sound\invaderkilled.wav" />
     <Content Include="Resources\sound\shoot.wav" />
     <Content Include="Resources\sound\ufo_lowpitch.wav" />
+    <None Include="Resources\tieFighter.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
