@@ -15,10 +15,6 @@ namespace SpaceInvaders
     class Missile : GameObject
     {
         #region Fields
-        /// <summary>
-        /// Position
-        /// </summary>
-        public Vecteur2D vector;
         private bool up;
 
 
@@ -49,7 +45,7 @@ namespace SpaceInvaders
             {
                 image = SpaceInvaders.Properties.Resources.shotDown;
             }
-            vector = new Vecteur2D(x, y);
+            base.vector = new Vecteur2D(x, y);
             this.up = up;
         }
         #endregion

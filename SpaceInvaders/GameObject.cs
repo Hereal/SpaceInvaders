@@ -11,7 +11,7 @@ namespace SpaceInvaders
     /// </summary>
     abstract class GameObject
     {
-        public Vecteur2D vector;
+        public Vecteur2D vector = new Vecteur2D(0,0);
 
         public GameObject()
         {

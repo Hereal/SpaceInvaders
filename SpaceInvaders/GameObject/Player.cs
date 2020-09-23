@@ -20,7 +20,6 @@ namespace SpaceInvaders
         /// <summary>
         /// Position
         /// </summary>
-        public Vecteur2D vector = new Vecteur2D(0, 0);
 
 
         /// <summary>
@@ -48,7 +47,7 @@ namespace SpaceInvaders
         /// <param name="y">start position y</param>
         public Player(double x, double y) : base()
         {
-            vector = new Vecteur2D(x, y);
+            base.vector = new Vecteur2D(x, y);
             image = SpaceInvaders.Properties.Resources.player;
 
 

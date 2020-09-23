@@ -18,7 +18,6 @@ namespace SpaceInvaders
         /// <summary>
         /// Position
         /// </summary>
-        public Vecteur2D vector = new Vecteur2D(0, 0);
 
 
         /// <summary>
@@ -50,7 +49,7 @@ namespace SpaceInvaders
             image = SpaceInvaders.Properties.Resources.tieFighter;
             imageExplosion = SpaceInvaders.Properties.Resources.explosion;
             killTimer = 0;
-            vector = new Vecteur2D(x, y);
+            base.vector = new Vecteur2D(x, y);
         }
         #endregion
 
