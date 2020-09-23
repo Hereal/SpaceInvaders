@@ -28,10 +28,10 @@ namespace SpaceInvaders
         private double shipSpeed = 100;
 
 
+
         private bool alive = true;
 
         private Bitmap image;
-        private Bitmap imageExplosion;
 
         private Missile missile = null;
 
@@ -62,10 +62,7 @@ namespace SpaceInvaders
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-
-            
-                GraphManager.DrawBufferedImage(gameInstance, image, (int)vector.x, (int)vector.y);
-
+            GraphManager.DrawBufferedImage(gameInstance, image, (int)vector.x, (int)vector.y);
         }
 
         public override bool IsAlive()
@@ -73,7 +70,7 @@ namespace SpaceInvaders
             return alive;
         }
 
-        public override void Kill(int pv,Game gameInstance)
+        public override void Kill(int pv, Game gameInstance)
         {
             base.pv -= pv;
             if (base.pv <= 0)
@@ -99,7 +96,7 @@ namespace SpaceInvaders
 
         public override void Shoot(Game gameInstance, double deltaT)
         {
-            if (missile == null || missile.IsAlive() == false)
+            if (missile == null || missile.IsAlive() == false&& Utils.rand.Next(0,1000)==1)
             {
                 media.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
                 media.Play();

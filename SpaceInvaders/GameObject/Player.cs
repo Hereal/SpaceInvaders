@@ -113,12 +113,10 @@ namespace SpaceInvaders
         {
             if (!alive)
                 return;
-            media.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
-            media.Play();
-
             if (missile == null || missile.IsAlive() == false)
             {
-
+                media.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
+                media.Play();
                 missile = new Missile((int)vector.x + 7, (int)vector.y - 7, true, 10);
                 gameInstance.AddNewGameObject(missile);
 

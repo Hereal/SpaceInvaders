@@ -7,6 +7,7 @@ namespace SpaceInvaders.Manager
 {
     class Utils
     {
+        public static Random rand = new Random(Guid.NewGuid().GetHashCode());
 
         public static String GetTimestamp(DateTime value)
         {

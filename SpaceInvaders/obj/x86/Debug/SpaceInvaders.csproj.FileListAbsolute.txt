@@ -16,3 +16,12 @@ C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\Space
 C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.csproj.CoreCompileInputs.cache
 C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.exe
 C:\Users\Loïc\Documents\E3FI\C#\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.pdb
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.exe
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.pdb
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.csprojAssemblyReference.cache
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.GameForm.resources
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.Properties.Resources.resources
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.csproj.GenerateResource.cache
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.csproj.CoreCompileInputs.cache
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.exe
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.pdb

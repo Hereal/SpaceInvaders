@@ -53,6 +53,7 @@ namespace SpaceInvaders
         {
             foreach (GameObject gm in gameInstance.gameObjects)
             {
+                bool collision = false;
                 if (!gm.Equals(this))
                 {
                     Rectangle missileRect = new Rectangle((int)vector.x, (int)vector.y, image.Width - 1, image.Height - 1);
@@ -63,15 +64,20 @@ namespace SpaceInvaders
                     g.DrawRectangle(new Pen(Color.Red), gmRect);*/
                     if (missileRect.IntersectsWith(gmRect) && gm.Equals(this) == false)
                     {
-                        getCollisionPoint(gm, gmRect, missileRect,gameInstance);
-                        //this.alive = true;
-
+                        CollisionPoint(gm, gmRect, missileRect, gameInstance);
+                        collision = true;
                     }
+                }
+                if (collision)
+                {
+                    gm.Kill(Utils.min(gm.pv, this.pv), gameInstance);
+                    this.Kill(Utils.min(gm.pv, this.pv), gameInstance);
+                    
                 }
             }
         }
 
-        private Point getCollisionPoint(GameObject gm, Rectangle gmRect, Rectangle missileRect,Game gameInstance)
+        private void CollisionPoint(GameObject gm, Rectangle gmRect, Rectangle missileRect, Game gameInstance)
         {
             for (int i = 0; i < missileRect.Width; i++)
             {
@@ -84,9 +90,7 @@ namespace SpaceInvaders
                             gm.GetImage().SetPixel(gmx, gmy, Color.Transparent);
                 }
             }
-            gm.Kill(Utils.min(gm.pv, this.pv),gameInstance);
-            //this.Kill(Utils.min(gm.pv, this.pv), gameInstance);
-            return Point.Empty;
+
         }
 
 

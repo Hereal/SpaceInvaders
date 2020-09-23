@@ -125,10 +125,10 @@ namespace SpaceInvaders
             Game.player = new Player(142, 190,10);
             game.AddNewGameObject(Game.player);
 
-            game.AddNewGameObject(new Ship(30, 9,20));
+            game.AddNewGameObject(new Ship(30, 9,10));
 
             theme.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\theme.wav")));
-            theme.Play();
+            //theme.Play();
         }
     }
 }

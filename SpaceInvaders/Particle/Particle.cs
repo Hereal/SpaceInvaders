@@ -16,7 +16,7 @@ namespace SpaceInvaders.Particule
         private Rectangle rectangle;
         private Color color;
         private static System.Timers.Timer aTimer;
-        private int lifeTime = 1000;
+        private int lifeTime = 500;
         private bool alive = true;
 
         public Particle(Vecteur2D position, Vecteur2D direction, Color color)
@@ -24,8 +24,9 @@ namespace SpaceInvaders.Particule
             this.position = position;
             this.direction = direction;
             Random rnd = new Random(Guid.NewGuid().GetHashCode());
-            this.direction.x += rnd.Next(-2,2);
-            this.direction.y += rnd.Next(-2, 2);
+            int random = 10;
+            this.direction.x += rnd.Next(-random, random);
+            this.direction.y += rnd.Next(-random, random);
 
             this.color = color;
             int r = rnd.Next(0, 20);
