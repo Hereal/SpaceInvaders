@@ -12,6 +12,7 @@ namespace SpaceInvaders
     abstract class GameObject
     {
         public Vecteur2D vector = new Vecteur2D(0,0);
+        public int pv = 0;
 
         public GameObject()
         {
@@ -37,7 +38,7 @@ namespace SpaceInvaders
         /// <returns>Am I alive ?</returns>
         public abstract bool IsAlive();
 
-        public abstract void Kill();
+        public abstract void Kill(int pv,Game gameInstance);
 
         public abstract void MoveRight(Game gameInstance, double deltaT);
 

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
 using SpaceInvaders.Manager;
+using SpaceInvaders.Particule;
 
 namespace SpaceInvaders
 {
@@ -13,6 +14,11 @@ namespace SpaceInvaders
     {
 
         #region GameObjects management
+        /// <summary>
+        /// Set of all particles currently in the game
+        /// </summary>
+        public HashSet<Particle> particles = new HashSet<Particle>();
+
         /// <summary>
         /// Set of all game objects currently in the game
         /// </summary>
@@ -112,10 +118,14 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
-            
-            player.Draw(this, g);
+            if (player.IsAlive())
+                player.Draw(this, g);
             foreach (GameObject gameObject in gameObjects)
                 gameObject.Draw(this, g);
+            foreach (Particle particle in particles)
+            {
+                particle.Draw(Graphics.FromImage(GraphManager.bufferedImage));
+            }
             int start = DateTime.Now.Millisecond;
             GraphManager.Draw(this, g);
             
@@ -154,9 +164,15 @@ namespace SpaceInvaders
             {
                 gameObject.Update(this, deltaT);
             }
+            foreach (Particle particle in particles)
+            {
+                particle.Update(this, deltaT);
+            }
 
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+            particles.RemoveWhere(generator => !generator.IsAlive());
+
         }
         #endregion
     }

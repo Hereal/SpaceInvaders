@@ -122,11 +122,11 @@ namespace SpaceInvaders
 
         private void GameForm_Load(object sender, EventArgs e)
         {
-            Game.player = new Player(142, 190);
+            Game.player = new Player(142, 190,10);
             game.AddNewGameObject(Game.player);
 
-            game.AddNewGameObject(new Ship(30, 9));
-            game.AddNewGameObject(new Ship(150, 9));
+            game.AddNewGameObject(new Ship(30, 9,20));
+
             theme.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\theme.wav")));
             theme.Play();
         }

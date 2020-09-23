@@ -6,6 +6,7 @@ using System.Drawing;
 using SpaceInvaders.Manager;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using SpaceInvaders.Particule;
 
 namespace SpaceInvaders
 {
@@ -35,17 +36,14 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
-        public Missile(double x, double y, bool up) : base()
+        public Missile(double x, double y, bool up, int pv) : base()
         {
             if (up)
-            {
                 image = SpaceInvaders.Properties.Resources.shotUp;
-            }
             else
-            {
                 image = SpaceInvaders.Properties.Resources.shotDown;
-            }
             base.vector = new Vecteur2D(x, y);
+            base.pv = pv;
             this.up = up;
         }
         #endregion
@@ -65,16 +63,15 @@ namespace SpaceInvaders
                     g.DrawRectangle(new Pen(Color.Red), gmRect);*/
                     if (missileRect.IntersectsWith(gmRect) && gm.Equals(this) == false)
                     {
-                        getCollisionPoint(gm, gmRect, missileRect);
+                        getCollisionPoint(gm, gmRect, missileRect,gameInstance);
                         //this.alive = true;
-                        //gm.Kill();
 
                     }
                 }
             }
         }
 
-        private Point getCollisionPoint(GameObject gm, Rectangle gmRect, Rectangle missileRect)
+        private Point getCollisionPoint(GameObject gm, Rectangle gmRect, Rectangle missileRect,Game gameInstance)
         {
             for (int i = 0; i < missileRect.Width; i++)
             {
@@ -87,6 +84,8 @@ namespace SpaceInvaders
                             gm.GetImage().SetPixel(gmx, gmy, Color.Transparent);
                 }
             }
+            gm.Kill(Utils.min(gm.pv, this.pv),gameInstance);
+            //this.Kill(Utils.min(gm.pv, this.pv), gameInstance);
             return Point.Empty;
         }
 
@@ -116,9 +115,14 @@ namespace SpaceInvaders
             return alive;
         }
 
-        public override void Kill()
+        public override void Kill(int pv, Game gameInstance)
         {
-            alive = false;
+            base.pv -= pv;
+            if (base.pv <= 0)
+            {
+                alive = false;
+                gameInstance.particles.UnionWith(ParticleGenerator.GenerateParticle(image, base.vector));
+            }
         }
 
         public override void MoveRight(Game gameInstance, double deltaT)

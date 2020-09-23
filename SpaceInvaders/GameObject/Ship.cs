@@ -6,6 +6,8 @@ using System.Text;
 using System.Drawing;
 using SpaceInvaders.Manager;
 using System.Windows.Media;
+using System.Diagnostics;
+using SpaceInvaders.Particule;
 
 namespace SpaceInvaders
 {
@@ -25,7 +27,6 @@ namespace SpaceInvaders
         /// </summary>
         private double shipSpeed = 100;
 
-        private Int64 killTimer = 0;
 
         private bool alive = true;
 
@@ -44,12 +45,11 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
-        public Ship(double x, double y) : base()
+        public Ship(double x, double y, int pv) : base()
         {
             image = SpaceInvaders.Properties.Resources.tieFighter;
-            imageExplosion = SpaceInvaders.Properties.Resources.explosion;
-            killTimer = 0;
             base.vector = new Vecteur2D(x, y);
+            base.pv = pv;
         }
         #endregion
 
@@ -63,28 +63,24 @@ namespace SpaceInvaders
         public override void Draw(Game gameInstance, Graphics graphics)
         {
 
-            if (killTimer != 0)
-            {
-                GraphManager.DrawBufferedImage(gameInstance, imageExplosion, (int)vector.x, (int)vector.y);
-            }
-            else
-            {
+            
                 GraphManager.DrawBufferedImage(gameInstance, image, (int)vector.x, (int)vector.y);
-            }
 
         }
 
         public override bool IsAlive()
         {
-            if (Int64.Parse(Utils.GetTimestamp(DateTime.Now)) >= killTimer + 1000 && killTimer != 0)
-                alive = false;
-
             return alive;
         }
 
-        public override void Kill()
+        public override void Kill(int pv,Game gameInstance)
         {
-            killTimer = Int64.Parse(Utils.GetTimestamp(DateTime.Now));
+            base.pv -= pv;
+            if (base.pv <= 0)
+            {
+                gameInstance.particles.UnionWith(ParticleGenerator.GenerateParticle(image, base.vector));
+                alive = false;
+            }
         }
 
         public override void MoveRight(Game gameInstance, double deltaT)
@@ -107,7 +103,7 @@ namespace SpaceInvaders
             {
                 media.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
                 media.Play();
-                missile = new Missile((int)vector.x + 7, (int)vector.y + 16, false);
+                missile = new Missile((int)vector.x + 7, (int)vector.y + 16, false, 10);
                 gameInstance.AddNewGameObject(missile);
             }
         }

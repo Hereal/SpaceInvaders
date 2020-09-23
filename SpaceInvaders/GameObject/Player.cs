@@ -8,6 +8,8 @@ using SpaceInvaders.Manager;
 using System.Threading;
 using System.Media;
 using System.Windows.Media;
+using System.Diagnostics;
+using SpaceInvaders.Particule;
 
 namespace SpaceInvaders
 {
@@ -37,6 +39,7 @@ namespace SpaceInvaders
         private MediaPlayer media = new MediaPlayer();
 
 
+
         #endregion
 
         #region Constructor
@@ -45,10 +48,12 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
-        public Player(double x, double y) : base()
+        public Player(double x, double y, int pv) : base()
         {
             base.vector = new Vecteur2D(x, y);
             image = SpaceInvaders.Properties.Resources.player;
+            base.pv = pv;
+
 
 
         }
@@ -60,6 +65,7 @@ namespace SpaceInvaders
         {
             if (vector.y > gameInstance.gameSize.Height)
                 alive = false;
+
         }
 
         public override void Draw(Game gameInstance, Graphics graphics)
@@ -73,13 +79,22 @@ namespace SpaceInvaders
             return alive;
         }
 
-        public override void Kill()
+        public override void Kill(int pv, Game gameInstance)
         {
-            alive = false;
+            base.pv -= pv;
+            if (base.pv <= 0)
+            {
+                alive = false;
+                gameInstance.particles.UnionWith(ParticleGenerator.GenerateParticle(image, base.vector));
+            }
+            Debug.Print("pv: " + base.pv);
+
         }
 
         public override void MoveRight(Game gameInstance, double deltaT)
         {
+            if (!alive)
+                return;
             vector.x += playerSpeed * deltaT;
             if (vector.x > GraphManager.bufferedImage.Width - image.Width)
                 vector.x = GraphManager.bufferedImage.Width - image.Width;
@@ -87,6 +102,8 @@ namespace SpaceInvaders
         }
         public override void MoveLeft(Game gameInstance, double deltaT)
         {
+            if (!alive)
+                return;
             vector.x -= playerSpeed * deltaT;
             if (vector.x < 0)
                 vector.x = 0;
@@ -94,14 +111,15 @@ namespace SpaceInvaders
 
         public override void Shoot(Game gameInstance, double deltaT)
         {
+            if (!alive)
+                return;
             media.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
             media.Play();
 
             if (missile == null || missile.IsAlive() == false)
             {
 
-
-                missile = new Missile((int)vector.x + 7, (int)vector.y - 7, true);
+                missile = new Missile((int)vector.x + 7, (int)vector.y - 7, true, 10);
                 gameInstance.AddNewGameObject(missile);
 
             }
