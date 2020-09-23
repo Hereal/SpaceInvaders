@@ -18,7 +18,7 @@ namespace SpaceInvaders
         /// <summary>
         /// Position
         /// </summary>
-        private double x, y;
+        public Vecteur2D vector = new Vecteur2D(0, 0);
 
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace SpaceInvaders
 
         private bool alive = true;
 
-        private Bitmap image ;
+        private Bitmap image;
         private Bitmap imageExplosion;
 
         private Missile missile = null;
@@ -50,8 +50,7 @@ namespace SpaceInvaders
             image = SpaceInvaders.Properties.Resources.tieFighter;
             imageExplosion = SpaceInvaders.Properties.Resources.explosion;
             killTimer = 0;
-            this.x = x;
-            this.y = y;
+            vector = new Vecteur2D(x, y);
         }
         #endregion
 
@@ -64,23 +63,23 @@ namespace SpaceInvaders
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            
+
             if (killTimer != 0)
             {
-                GraphManager.DrawBufferedImage(gameInstance, imageExplosion, (int)x, (int)y);
+                GraphManager.DrawBufferedImage(gameInstance, imageExplosion, (int)vector.x, (int)vector.y);
             }
             else
             {
-                GraphManager.DrawBufferedImage(gameInstance, image, (int)x, (int)y);
+                GraphManager.DrawBufferedImage(gameInstance, image, (int)vector.x, (int)vector.y);
             }
-            
+
         }
 
         public override bool IsAlive()
         {
             if (Int64.Parse(Utils.GetTimestamp(DateTime.Now)) >= killTimer + 1000 && killTimer != 0)
                 alive = false;
-            
+
             return alive;
         }
 
@@ -91,16 +90,16 @@ namespace SpaceInvaders
 
         public override void MoveRight(Game gameInstance, double deltaT)
         {
-            x += shipSpeed * deltaT ;
-            if (x > GraphManager.bufferedImage.Width - image.Width)
-                x = GraphManager.bufferedImage.Width - image.Width;
+            vector.x += shipSpeed * deltaT;
+            if (vector.x > GraphManager.bufferedImage.Width - image.Width)
+                vector.x = GraphManager.bufferedImage.Width - image.Width;
 
         }
         public override void MoveLeft(Game gameInstance, double deltaT)
         {
-            x -= shipSpeed * deltaT;
-            if (x < 0)
-                x= 0;
+            vector.x -= shipSpeed * deltaT;
+            if (vector.x < 0)
+                vector.x = 0;
         }
 
         public override void Shoot(Game gameInstance, double deltaT)
@@ -109,17 +108,13 @@ namespace SpaceInvaders
             {
                 media.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
                 media.Play();
-                missile = new Missile(x + 7, y+9, false);
+                missile = new Missile((int)vector.x + 7, (int)vector.y + 16, false);
                 gameInstance.AddNewGameObject(missile);
             }
         }
         public override Bitmap GetImage()
         {
             return image;
-        }
-        public override Point GetCoord()
-        {
-            return new Point((int)x, (int)y);
         }
 
         #endregion

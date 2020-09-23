@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using SpaceInvaders.Manager;
+using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace SpaceInvaders
 {
@@ -16,8 +18,8 @@ namespace SpaceInvaders
         /// <summary>
         /// Position
         /// </summary>
-        private double x, y;
-        private bool up; 
+        public Vecteur2D vector;
+        private bool up;
 
 
         /// <summary>
@@ -27,7 +29,7 @@ namespace SpaceInvaders
 
         private bool alive = true;
 
-        private Bitmap image ;
+        private Bitmap image;
 
         #endregion
 
@@ -37,7 +39,7 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
-        public Missile(double x, double y,bool up) : base()
+        public Missile(double x, double y, bool up) : base()
         {
             if (up)
             {
@@ -47,95 +49,70 @@ namespace SpaceInvaders
             {
                 image = SpaceInvaders.Properties.Resources.shotDown;
             }
-            this.x = x;
-            this.y = y;
+            vector = new Vecteur2D(x, y);
             this.up = up;
         }
         #endregion
 
         #region Methods
-
-        public override void Update(Game gameInstance, double deltaT)
+        private void collisionHandler(Game gameInstance)
         {
-            if (up)
-            {
-                y -= missileSpeed * deltaT;
-                
-            }
-            else
-                y += missileSpeed * deltaT;
-            
-            if (y > GraphManager.bufferedImage.Height || y<0-image.Height)
-                alive = false;
             foreach (GameObject gm in gameInstance.gameObjects)
             {
-                if (x > gm.GetCoord().X && x <= gm.GetImage().Width + gm.GetCoord().X)
+                if (!gm.Equals(this))
                 {
-                    if (y > gm.GetCoord().Y && y <= gm.GetImage().Height + gm.GetCoord().Y)
+                    Rectangle missileRect = new Rectangle((int)vector.x, (int)vector.y, image.Width - 1, image.Height - 1);
+                    Rectangle gmRect = new Rectangle((int)gm.vector.x, (int)gm.vector.y, gm.GetImage().Width - 1, gm.GetImage().Height - 1);
+
+                    /*Graphics g = Graphics.FromImage(GraphManager.bufferedImage);
+                    g.DrawRectangle(new Pen(Color.Red), missileRect);
+                    g.DrawRectangle(new Pen(Color.Red), gmRect);*/
+                    if (missileRect.IntersectsWith(gmRect) && gm.Equals(this) == false)
                     {
-                        bool colision = false;
-                        for(int i= 0; i < image.Width; i++)
-                        {
-                            for(int j = 0; j < image.Height; j++)
-                            {
-                                if (image.GetPixel(i, j).A > 150 && gm.Equals(this) == false)
-                                {
-                                    /*if(gm.GetImage().GetPixel(((int)x+gm.GetCoord().X)-gm.GetCoord().X, ((int)x + gm.GetCoord().X) - gm.GetCoord().Y).A>150){
-                                        colision = false;
-                                        break;
-                                       }*/
-                                }
-                            }
-                        }
+                        getCollisionPoint(gm, gmRect, missileRect);
+                        //this.alive = true;
+                        //gm.Kill();
 
-
-
-
-
-
-
-
-
-
-
-                        if (up && gm is Ship&& colision)
-                        {
-
-
-                            Color pixel = gm.GetImage().GetPixel((int)x-gm.GetCoord().X, (int)y - gm.GetCoord().Y);
-                            if (pixel.A > 150) {
-                                gm.Kill();
-                                this.alive = false;
-                            }
-                            
-                        }
-                        else if (gm is Missile && colision)
-                        {
-                            Color pixel = gm.GetImage().GetPixel((int)x - gm.GetCoord().X, (int)y - gm.GetCoord().Y);
-                            if (pixel.A > 150)
-                            {
-                                gm.Kill();
-                                this.alive = false;
-                            }
-                        }
-                        else if (!up && gm is Player && colision)
-                        {
-                            Color pixel = gm.GetImage().GetPixel((int)x - gm.GetCoord().X, (int)y - gm.GetCoord().Y);
-                            if (pixel.A > 150)
-                            {
-                                gm.Kill();
-                                this.alive = false;
-                            }
-                        }
                     }
                 }
             }
         }
 
+        private Point getCollisionPoint(GameObject gm, Rectangle gmRect, Rectangle missileRect)
+        {
+            for (int i = 0; i < missileRect.Width; i++)
+            {
+                for (int j = 0; j < missileRect.Width; j++)
+                {
+                    int gmx = i + (int)vector.x - gmRect.X;
+                    int gmy = j + (int)vector.y - gmRect.Y;
+                    if (gmx > 0 && gmy > 0)
+                        if (gm.GetImage().GetPixel(gmx, gmy).A > 150 && image.GetPixel(i, j).A > 150)
+                            gm.GetImage().SetPixel(gmx, gmy, Color.Transparent);
+                }
+            }
+            return Point.Empty;
+        }
+
+
+        public override void Update(Game gameInstance, double deltaT)
+        {
+            if (up)
+                vector.y -= missileSpeed * deltaT;
+            else
+                vector.y += missileSpeed * deltaT;
+
+            if (vector.y > GraphManager.bufferedImage.Height || vector.y < 0 - image.Height)
+                alive = false;
+
+            collisionHandler(gameInstance);
+
+        }
+
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            GraphManager.DrawBufferedImage(gameInstance, image, (int)x, (int)y);
-            
+            GraphManager.DrawBufferedImage(gameInstance, image, (int)vector.x, (int)vector.y);
+
         }
 
         public override bool IsAlive()
@@ -150,12 +127,12 @@ namespace SpaceInvaders
 
         public override void MoveRight(Game gameInstance, double deltaT)
         {
-            
+
 
         }
         public override void MoveLeft(Game gameInstance, double deltaT)
         {
-            
+
         }
 
         public override void Shoot(Game gameInstance, double deltaT)
@@ -165,10 +142,6 @@ namespace SpaceInvaders
         public override Bitmap GetImage()
         {
             return image;
-        }
-        public override Point GetCoord()
-        {
-            return new Point((int)x, (int)y);
         }
 
         #endregion

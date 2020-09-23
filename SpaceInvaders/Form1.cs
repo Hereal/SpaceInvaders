@@ -35,7 +35,7 @@ namespace SpaceInvaders
 
         MediaPlayer theme = new MediaPlayer();
         #endregion
-           
+
         #endregion
 
         #region constructor
@@ -126,6 +126,7 @@ namespace SpaceInvaders
             game.AddNewGameObject(Game.player);
 
             game.AddNewGameObject(new Ship(30, 9));
+            game.AddNewGameObject(new Ship(150, 9));
             theme.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\theme.wav")));
             theme.Play();
         }

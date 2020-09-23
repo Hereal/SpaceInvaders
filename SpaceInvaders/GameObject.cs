@@ -11,7 +11,8 @@ namespace SpaceInvaders
     /// </summary>
     abstract class GameObject
     {
-       
+        public Vecteur2D vector;
+
         public GameObject()
         {
         }
@@ -46,7 +47,6 @@ namespace SpaceInvaders
 
         public abstract Bitmap GetImage();
 
-        public abstract Point GetCoord();
 
     }
 }

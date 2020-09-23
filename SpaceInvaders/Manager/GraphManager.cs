@@ -29,28 +29,28 @@ namespace SpaceInvaders.Manager
             bufferedImage = new Bitmap(297, 219);
         }
 
-        public static void DrawBufferedImage(Game gameInstance,Bitmap image, int x, int y)
+        public static void DrawBufferedImage(Game gameInstance, Bitmap image, int x, int y)
         {
             Graphics g = Graphics.FromImage(bufferedImage);
-            g.DrawImage(image, (int)x, (int)y,image.Width,image.Height);
+            g.DrawImage(image, (int)x, (int)y, image.Width, image.Height);
         }
 
         public static void ChangeColor(Game gameInstance)
         {
-            
+
             foreach (GameObject gm in gameInstance.gameObjects)
             {
-                int dx = gm.GetCoord().X;
-                int dy = gm.GetCoord().Y;
+                int dx = (int)gm.vector.x;
+                int dy = (int)gm.vector.y;
                 int width = gm.GetImage().Width;
                 int height = gm.GetImage().Height;
-                for (int x = dx; x < dx+width; x++)
+                for (int x = dx; x < dx + width; x++)
                 {
-                    for (int y = dy; y < dy+height; y++)
+                    for (int y = dy; y < dy + height; y++)
                     {
-                        if(x>=0&& y >= 0&&x<bufferedImage.Width && y < bufferedImage.Height)
+                        if (x >= 0 && y >= 0 && x < bufferedImage.Width && y < bufferedImage.Height)
                         {
-                            
+
                             if (bufferedImage.GetPixel(x, y).A >= 150)
                             {
                                 bufferedImage.SetPixel(x, y, Color.White);
@@ -61,7 +61,7 @@ namespace SpaceInvaders.Manager
                             }
                             if (bufferedImage.GetPixel(x, y).A != 0)
                             {
-                                
+
                                 Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
                                 bufferedImage.SetPixel(x, y, randomColor);
                             }
@@ -70,7 +70,7 @@ namespace SpaceInvaders.Manager
                 }
             }
 
-            
+
         }
 
     }

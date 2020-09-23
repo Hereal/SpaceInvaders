@@ -20,7 +20,7 @@ namespace SpaceInvaders
         /// <summary>
         /// Position
         /// </summary>
-        private double x, y;
+        public Vecteur2D vector = new Vecteur2D(0, 0);
 
 
         /// <summary>
@@ -30,13 +30,13 @@ namespace SpaceInvaders
 
         private bool alive = true;
 
-        private Bitmap image ;
+        private Bitmap image;
 
         private Missile missile = null;
 
 
         private MediaPlayer media = new MediaPlayer();
-        
+
 
         #endregion
 
@@ -48,11 +48,10 @@ namespace SpaceInvaders
         /// <param name="y">start position y</param>
         public Player(double x, double y) : base()
         {
+            vector = new Vecteur2D(x, y);
             image = SpaceInvaders.Properties.Resources.player;
 
 
-            this.x = x;
-            this.y = y;
         }
         #endregion
 
@@ -60,14 +59,14 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            if (y > gameInstance.gameSize.Height)
+            if (vector.y > gameInstance.gameSize.Height)
                 alive = false;
         }
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            GraphManager.DrawBufferedImage(gameInstance, image, (int)x, (int)y);
-            
+            GraphManager.DrawBufferedImage(gameInstance, image, (int)vector.x, (int)vector.y);
+
         }
 
         public override bool IsAlive()
@@ -82,16 +81,16 @@ namespace SpaceInvaders
 
         public override void MoveRight(Game gameInstance, double deltaT)
         {
-            x += playerSpeed * deltaT ;
-            if (x > GraphManager.bufferedImage.Width - image.Width)
-                x = GraphManager.bufferedImage.Width - image.Width;
+            vector.x += playerSpeed * deltaT;
+            if (vector.x > GraphManager.bufferedImage.Width - image.Width)
+                vector.x = GraphManager.bufferedImage.Width - image.Width;
 
         }
         public override void MoveLeft(Game gameInstance, double deltaT)
         {
-            x -= playerSpeed * deltaT;
-            if (x < 0)
-                x= 0;
+            vector.x -= playerSpeed * deltaT;
+            if (vector.x < 0)
+                vector.x = 0;
         }
 
         public override void Shoot(Game gameInstance, double deltaT)
@@ -101,20 +100,16 @@ namespace SpaceInvaders
 
             if (missile == null || missile.IsAlive() == false)
             {
-                
 
-                missile = new Missile(x + 7, y, true);
+
+                missile = new Missile((int)vector.x + 7, (int)vector.y - 7, true);
                 gameInstance.AddNewGameObject(missile);
-                
+
             }
         }
         public override Bitmap GetImage()
         {
             return image;
-        }
-        public override Point GetCoord()
-        {
-            return new Point((int)x, (int)y);
         }
 
         #endregion
