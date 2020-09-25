@@ -16,34 +16,45 @@ namespace SpaceInvaders.Particule
         private Rectangle rectangle;
         private Color color;
         private static System.Timers.Timer aTimer;
-        private int lifeTime = 500;
         private bool alive = true;
 
-        public Particle(Vecteur2D position, Vecteur2D direction, Color color)
+        public Particle(Vecteur2D position, Vecteur2D direction, Color color,int dispersion=0, int colorRandom=0,int lifetime = 500)
         {
             this.position = position;
             this.direction = direction;
-            Random rnd = new Random(Guid.NewGuid().GetHashCode());
-            int random = 10;
-            this.direction.x += rnd.Next(-random, random);
-            this.direction.y += rnd.Next(-random, random);
-
             this.color = color;
-            int r = rnd.Next(0, 20);
-            int g = rnd.Next(0, 20);
-            int b = rnd.Next(0, 20);
-            r = this.color.R + r <= 255 ? r+this.color.R : 255;
+
+            dispersionManager(dispersion);
+
+            this.color = colorManager(color, colorRandom);
+            
+            SetTimer(lifetime);
+        }
+
+        private void dispersionManager(int dispersion)
+        {
+            this.direction.x += Utils.rand.Next(-dispersion, dispersion);
+            this.direction.y += Utils.rand.Next(-dispersion, dispersion);
+        }
+
+        private Color colorManager(Color color,int colorRandom)
+        {
+            
+            int r = Utils.rand.Next(0, colorRandom);
+            int g = Utils.rand.Next(0, colorRandom);
+            int b = Utils.rand.Next(0, colorRandom);
+            r = this.color.R + r <= 255 ? r + this.color.R : 255;
             g = this.color.G + g <= 255 ? g + this.color.G : 255;
             b = this.color.B + b <= 255 ? b + this.color.B : 255;
             this.color = Color.FromArgb(255, r, g, b);
-            SetTimer();
+            return color;
         }
 
 
-        private  void SetTimer()
+        private  void SetTimer(int lifetime)
         {
             // Create a timer with a two second interval.
-            aTimer = new System.Timers.Timer(lifeTime);
+            aTimer = new System.Timers.Timer(lifetime);
             // Hook up the Elapsed event for the timer. 
             aTimer.Elapsed += OnTimedEvent;
             aTimer.AutoReset = true;
@@ -59,14 +70,20 @@ namespace SpaceInvaders.Particule
         public void Update(Game game, double deltaT)
         {
 
-            position = position + (direction / 50.0);
-            rectangle = new Rectangle((int)position.x, (int)position.y, 1, 1);
+            position = position + direction *deltaT;
+            rectangle = new Rectangle((int)position.x, (int)position.y,1,1);
 
 
         }
         public void Draw(Graphics g)
         {
-            g.DrawRectangle(new Pen(color), rectangle);
+            //Pen p = new Pen(color, 1);
+            //g.DrawRectangle(p, rectangle);
+            Bitmap bm = new Bitmap(1, 1);
+
+            bm.SetPixel(0, 0, color);
+
+            g.DrawImageUnscaled(bm, (int)position.x, (int)position.y);
         }
         public bool IsAlive()
         {

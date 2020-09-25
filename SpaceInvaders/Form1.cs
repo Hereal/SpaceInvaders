@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Windows.Media;
 using System.IO;
+using SpaceInvaders.Particule;
 
 namespace SpaceInvaders
 {
@@ -128,7 +129,17 @@ namespace SpaceInvaders
             game.AddNewGameObject(new Ship(30, 9,10));
 
             theme.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\theme.wav")));
-            //theme.Play();
+            theme.Volume = 0.2;
+            theme.MediaEnded += new EventHandler(Media_Ended);
+
+            theme.Play();
+            
+        }
+        private void Media_Ended(object sender, EventArgs e)
+        {
+            theme.Position = TimeSpan.Zero;
+            theme.Play();
         }
     }
+
 }

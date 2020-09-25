@@ -118,6 +118,7 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
+            int start = DateTime.Now.Millisecond;
             if (player.IsAlive())
                 player.Draw(this, g);
             foreach (GameObject gameObject in gameObjects)
@@ -126,10 +127,10 @@ namespace SpaceInvaders
             {
                 particle.Draw(Graphics.FromImage(GraphManager.bufferedImage));
             }
-            int start = DateTime.Now.Millisecond;
+            
             GraphManager.Draw(this, g);
             
-            //Console.WriteLine("frameTime: " + (DateTime.Now.Millisecond - start));
+            Console.WriteLine("frameTime: " + (DateTime.Now.Millisecond - start));
         }
 
         /// <summary>
@@ -137,6 +138,7 @@ namespace SpaceInvaders
         /// </summary>
         public void Update(double deltaT)
         {
+            particles.UnionWith(ParticleGenerator.GenerateStars());
             // add new game objects
             gameObjects.UnionWith(pendingNewGameObjects);
             pendingNewGameObjects.Clear();

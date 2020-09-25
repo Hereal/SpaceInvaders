@@ -55,7 +55,7 @@ namespace SpaceInvaders
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameForm_KeyUp);
             this.ResumeLayout(false);
-            this.Size = new Size(745, 745);
+            this.Size = new Size(700, 745);
 
         }
 
