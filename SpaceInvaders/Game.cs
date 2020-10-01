@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using SpaceInvaders.Manager;
 using SpaceInvaders.Particule;
+using System.Windows.Media;
 
 namespace SpaceInvaders
 {
@@ -63,7 +64,7 @@ namespace SpaceInvaders
         /// <summary>
         /// A shared black brush
         /// </summary>
-        private static Brush blackBrush = new SolidBrush(Color.Black);
+        private static System.Drawing.Brush blackBrush = new SolidBrush(System.Drawing.Color.Black);
 
         /// <summary>
         /// A shared simple font
@@ -71,6 +72,9 @@ namespace SpaceInvaders
         private static Font defaultFont = new Font("Times New Roman", 24, FontStyle.Bold, GraphicsUnit.Pixel);
 
         public static Player player;
+        public static ShipGang shipGang;
+        public static bool debug = false;
+        public static double deltaT;
         #endregion
 
 
@@ -121,16 +125,22 @@ namespace SpaceInvaders
             int start = DateTime.Now.Millisecond;
             if (player.IsAlive())
                 player.Draw(this, g);
-            foreach (GameObject gameObject in gameObjects)
+            foreach (GameObject gameObject in gameObjects) {
                 gameObject.Draw(this, g);
+
+                if(debug)
+                    g.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Red), new Rectangle((int)gameObject.vector.x, (int)gameObject.vector.y, gameObject.GetImage().Width - 1, gameObject.GetImage().Height - 1));
+            }
+
             foreach (Particle particle in particles)
             {
-                particle.Draw(Graphics.FromImage(GraphManager.bufferedImage));
+                particle.Draw(g);
             }
             
-            GraphManager.Draw(this, g);
+            if(debug)
+                g.DrawString("FPS: "+1/deltaT, new Font(System.Drawing.FontFamily.GenericSansSerif, 12f, FontStyle.Regular),new SolidBrush(System.Drawing.Color.Red), 0, 0);
             
-            Console.WriteLine("frameTime: " + (DateTime.Now.Millisecond - start));
+            //Console.WriteLine("frameTime: " + (DateTime.Now.Millisecond - start));
         }
 
         /// <summary>
@@ -138,6 +148,8 @@ namespace SpaceInvaders
         /// </summary>
         public void Update(double deltaT)
         {
+            Game.deltaT = deltaT;
+            shipGang.Update(this, deltaT);
             particles.UnionWith(ParticleGenerator.GenerateStars());
             // add new game objects
             gameObjects.UnionWith(pendingNewGameObjects);
@@ -146,19 +158,20 @@ namespace SpaceInvaders
 
             // if space is pressed
             if (keyPressed.Contains(Keys.Space))
-            {
                 player.Shoot(game, deltaT);
-            }
-            // if space is pressed
+            // if left is pressed
             if (keyPressed.Contains(Keys.Left))
-            {
                 player.MoveLeft(game, deltaT);
-            }
-            // if space is pressed
+            // if right is pressed
             if (keyPressed.Contains(Keys.Right))
-            {
                 player.MoveRight(game, deltaT);
+            // if d is pressed
+            if (keyPressed.Contains(Keys.D))
+            {
+                debug = !debug;
+                ReleaseKey(Keys.D);
             }
+                
 
             // update each game object
             player.Update(this, deltaT);

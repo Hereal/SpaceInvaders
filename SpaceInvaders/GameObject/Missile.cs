@@ -22,7 +22,7 @@ namespace SpaceInvaders
         /// <summary>
         /// Ball speed in pixel/second
         /// </summary>
-        private double missileSpeed = 100;
+        private double missileSpeed = 200;
 
         private bool alive = true;
 
@@ -59,40 +59,44 @@ namespace SpaceInvaders
                     Rectangle missileRect = new Rectangle((int)vector.x, (int)vector.y, image.Width - 1, image.Height - 1);
                     Rectangle gmRect = new Rectangle((int)gm.vector.x, (int)gm.vector.y, gm.GetImage().Width - 1, gm.GetImage().Height - 1);
 
-                    /*Graphics g = Graphics.FromImage(GraphManager.bufferedImage);
-                    g.DrawRectangle(new Pen(Color.Red), missileRect);
-                    g.DrawRectangle(new Pen(Color.Red), gmRect);*/
-                    if (missileRect.IntersectsWith(gmRect) && gm.Equals(this) == false)
+                    
+                    if (missileRect.IntersectsWith(gmRect) && gm.Equals(this) == false && gm.IsAlive() && ((up && gm is Ship) || (!up && gm is Player) || gm is Missile || gm is Bunker))
                     {
-                        CollisionPoint(gm, gmRect, missileRect, gameInstance);
-                        collision = true;
+                        collision = CollisionPoint(gm, gmRect, missileRect, gameInstance);
                     }
                 }
-                if (collision)
+                if (collision )
                 {
-                    gm.Kill(Utils.min(gm.pv, this.pv), gameInstance);
-                    this.Kill(Utils.min(gm.pv, this.pv), gameInstance);
+                    int pv = Utils.min(gm.pv, this.pv);
+                    gm.Kill(1, gameInstance);
+                    Kill(1, gameInstance);
+                }
+            }
+        }
+
+        private bool CollisionPoint(GameObject gm, Rectangle gmRect, Rectangle missileRect, Game gameInstance)
+        {
+            bool collision = false;
+            Rectangle r = Rectangle.Intersect(gmRect, missileRect);
+            for(int i = r.X; i < r.X+r.Width; i++)
+            {
+                for (int j = r.Y; j < r.Y + r.Height; j++)
+                {
+                    int gmx = i  - gmRect.X;
+                    int gmy = j - gmRect.Y;
+                    int msx = i - missileRect.X;
+                    int msy = j - missileRect.Y;
+                        if (gm.GetImage().GetPixel(gmx,gmy).A > 150 && image.GetPixel(msx,msy).A > 150)
+                        {
+                            
+                            gm.GetImage().SetPixel(gmx, gmy, Color.Transparent);
+                            collision= true;
+                       }
                     
                 }
             }
+            return collision;
         }
-
-        private void CollisionPoint(GameObject gm, Rectangle gmRect, Rectangle missileRect, Game gameInstance)
-        {
-            for (int i = 0; i < missileRect.Width; i++)
-            {
-                for (int j = 0; j < missileRect.Width; j++)
-                {
-                    int gmx = i + (int)vector.x - gmRect.X;
-                    int gmy = j + (int)vector.y - gmRect.Y;
-                    if (gmx > 0 && gmy > 0)
-                        if (gm.GetImage().GetPixel(gmx, gmy).A > 150 && image.GetPixel(i, j).A > 150)
-                            gm.GetImage().SetPixel(gmx, gmy, Color.Transparent);
-                }
-            }
-
-        }
-
 
         public override void Update(Game gameInstance, double deltaT)
         {
@@ -101,7 +105,7 @@ namespace SpaceInvaders
             else
                 vector.y += missileSpeed * deltaT;
 
-            if (vector.y > GraphManager.bufferedImage.Height || vector.y < 0 - image.Height)
+            if (vector.y > gameInstance.gameSize.Height || vector.y < 0 - image.Height)
                 alive = false;
 
             collisionHandler(gameInstance);
@@ -110,7 +114,7 @@ namespace SpaceInvaders
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            GraphManager.DrawBufferedImage(gameInstance, image, (int)vector.x, (int)vector.y);
+            graphics.DrawImage(image, (int)vector.x, (int)vector.y,image.Width,image.Height);
 
         }
 

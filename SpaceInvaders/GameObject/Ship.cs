@@ -38,6 +38,7 @@ namespace SpaceInvaders
         private MediaPlayer mediaShoot = new MediaPlayer();
 
         private MediaPlayer mediaExplosion = new MediaPlayer();
+        
 
         #endregion
 
@@ -47,9 +48,9 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
-        public Ship(double x, double y, int pv) : base()
+        public Ship(double x, double y, int pv,Bitmap image) : base()
         {
-            image = SpaceInvaders.Properties.Resources.tieFighter;
+            this.image = image;
             base.vector = new Vecteur2D(x, y);
             base.pv = pv;
         }
@@ -64,7 +65,7 @@ namespace SpaceInvaders
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            GraphManager.DrawBufferedImage(gameInstance, image, (int)vector.x, (int)vector.y);
+            graphics.DrawImage(image, (int)vector.x, (int)vector.y);
         }
 
         public override bool IsAlive()
@@ -79,9 +80,9 @@ namespace SpaceInvaders
             {
                 gameInstance.particles.UnionWith(ParticleGenerator.GenerateParticle(image, base.vector));
                 alive = false;
-                
-                mediaExplosion.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\explosion\"+Utils.rand.Next(1, 4)+".wav")));
-                mediaExplosion.Volume = 0.7;
+
+                mediaExplosion.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\explosion\" + Utils.rand.Next(1, 4) + ".wav")));
+                mediaExplosion.Volume = 1.0;
                 mediaExplosion.Play();
             }
         }
@@ -89,31 +90,42 @@ namespace SpaceInvaders
         public override void MoveRight(Game gameInstance, double deltaT)
         {
             vector.x += shipSpeed * deltaT;
-            if (vector.x > GraphManager.bufferedImage.Width - image.Width)
-                vector.x = GraphManager.bufferedImage.Width - image.Width;
 
         }
         public override void MoveLeft(Game gameInstance, double deltaT)
         {
             vector.x -= shipSpeed * deltaT;
-            if (vector.x < 0)
-                vector.x = 0;
         }
 
         public override void Shoot(Game gameInstance, double deltaT)
         {
-            if (missile == null || missile.IsAlive() == false&& Utils.rand.Next(0,1000)==1)
+            if (missile == null || missile.IsAlive() == false)
             {
-                
-                mediaShoot.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
-                mediaShoot.Play();
-                missile = new Missile((int)vector.x + 7, (int)vector.y + 16, false, 10);
-                gameInstance.AddNewGameObject(missile);
+                if (Utils.rand.Next(0, 10000) == 1)
+                {
+
+                    mediaShoot.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
+                    mediaShoot.Play();
+                    missile = new Missile((int)vector.x + 7, (int)vector.y + 16, false, 10);
+                    gameInstance.AddNewGameObject(missile);
+                }
             }
         }
         public override Bitmap GetImage()
         {
             return image;
+        }
+
+        public void accelerate()
+        {
+            int maxSpeed = 500;
+            shipSpeed += 10;
+            if (shipSpeed > maxSpeed)
+                shipSpeed = maxSpeed;
+        }
+        public void moveDown()
+        {
+            vector.y += 10;
         }
 
         #endregion

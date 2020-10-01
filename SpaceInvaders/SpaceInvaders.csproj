@@ -64,6 +64,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObject\Bunker.cs" />
     <Compile Include="GameObject\Missile.cs" />
     <Compile Include="GameObject\Ship.cs" />
     <Compile Include="GameObject\Player.cs" />
@@ -86,6 +87,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ShipGang.cs" />
     <Compile Include="Vecteur2D.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -108,19 +110,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\arcade.png" />
+    <Content Include="Resources\bunker.png" />
     <Content Include="Resources\explosion.png" />
-    <Content Include="Resources\player.png" />
-    <None Include="Resources\shotUp.png" />
-    <Content Include="Resources\shotDown.png" />
-    <Content Include="Resources\sound\explosion.wav" />
-    <Content Include="Resources\sound\fastinvader1.wav" />
-    <Content Include="Resources\sound\fastinvader2.wav" />
-    <Content Include="Resources\sound\fastinvader3.wav" />
-    <Content Include="Resources\sound\fastinvader4.wav" />
-    <Content Include="Resources\sound\invaderkilled.wav" />
-    <Content Include="Resources\sound\shoot.wav" />
-    <Content Include="Resources\sound\ufo_lowpitch.wav" />
+    <None Include="Resources\tieBomber.png" />
+    <None Include="Resources\tieInterceptor.png" />
     <None Include="Resources\tieFighter.png" />
+    <Content Include="Resources\shotUp.png" />
+    <Content Include="Resources\player.png" />
+    <Content Include="Resources\shotDown.png" />
+    <Content Include="Resources\sound\shoot.wav" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Windows.Media;
 using System.IO;
 using SpaceInvaders.Particule;
+using SpaceInvaders.Manager;
 
 namespace SpaceInvaders
 {
@@ -35,6 +36,7 @@ namespace SpaceInvaders
 
 
         MediaPlayer theme = new MediaPlayer();
+        MediaPlayer begining = new MediaPlayer();
         #endregion
 
         #endregion
@@ -123,17 +125,27 @@ namespace SpaceInvaders
 
         private void GameForm_Load(object sender, EventArgs e)
         {
-            Game.player = new Player(142, 190,10);
+            Utils.rand.Next();
+            Game.player = new Player(650, 600, 10);
             game.AddNewGameObject(Game.player);
 
-            game.AddNewGameObject(new Ship(30, 9,10));
+            Game.shipGang = new ShipGang(4, game);
+
+            game.AddNewGameObject(new Bunker(100, 500, 10000));
+            game.AddNewGameObject(new Bunker(300, 500, 10000));
+            game.AddNewGameObject(new Bunker(500, 500, 10000));
+            game.AddNewGameObject(new Bunker(700, 500, 10000));
+            game.AddNewGameObject(new Bunker(900, 500, 10000));
 
             theme.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\theme.wav")));
             theme.Volume = 0.2;
             theme.MediaEnded += new EventHandler(Media_Ended);
+            //theme.Play();
 
-            theme.Play();
-            
+            begining.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\BattleAlarm.wav")));
+            begining.Volume = 0.5;
+            begining.Play();
+
         }
         private void Media_Ended(object sender, EventArgs e)
         {

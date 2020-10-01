@@ -63,5 +63,10 @@ namespace SpaceInvaders
                 throw new Exception("RequireNonNull");
             return new Vecteur2D(a.x / b, a.y / b);
         }
+
+        public override string ToString()
+        {
+            return "Vecteur x:" + x + "  y:" + y;
+        }
     }
 }

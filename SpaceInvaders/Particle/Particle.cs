@@ -17,8 +17,9 @@ namespace SpaceInvaders.Particule
         private Color color;
         private static System.Timers.Timer aTimer;
         private bool alive = true;
+        private int size;
 
-        public Particle(Vecteur2D position, Vecteur2D direction, Color color,int dispersion=0, int colorRandom=0,int lifetime = 500)
+        public Particle(Vecteur2D position, Vecteur2D direction, Color color,int dispersion=0, int colorRandom=0,int lifetime = 500,int size = 1)
         {
             this.position = position;
             this.direction = direction;
@@ -27,6 +28,7 @@ namespace SpaceInvaders.Particule
             dispersionManager(dispersion);
 
             this.color = colorManager(color, colorRandom);
+            this.size = size;
             
             SetTimer(lifetime);
         }
@@ -77,13 +79,14 @@ namespace SpaceInvaders.Particule
         }
         public void Draw(Graphics g)
         {
-            //Pen p = new Pen(color, 1);
-            //g.DrawRectangle(p, rectangle);
+            Pen p = new Pen(color, size);
+            g.DrawRectangle(p, rectangle);
+            /*
             Bitmap bm = new Bitmap(1, 1);
 
             bm.SetPixel(0, 0, color);
 
-            g.DrawImageUnscaled(bm, (int)position.x, (int)position.y);
+            g.DrawImageUnscaled(bm, (int)position.x, (int)position.y);*/
         }
         public bool IsAlive()
         {

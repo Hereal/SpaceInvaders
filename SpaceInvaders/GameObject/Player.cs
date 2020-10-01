@@ -27,7 +27,7 @@ namespace SpaceInvaders
         /// <summary>
         /// Ball speed in pixel/second
         /// </summary>
-        private double playerSpeed = 100;
+        private double playerSpeed = 500;
 
         private bool alive = true;
 
@@ -66,10 +66,10 @@ namespace SpaceInvaders
         {
             if (vector.y > gameInstance.gameSize.Height)
                 alive = false;
-            if (Utils.rand.Next(0, 5000)==1)
+            if (Utils.rand.Next(0, 4000)==1)
             {
                 mediaR2.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\R2\" + Utils.rand.Next(1, 7) + ".wav")));
-                mediaR2.Volume = 0.2;
+                mediaR2.Volume = 0.7;
                 mediaR2.Play();
             }
 
@@ -77,7 +77,7 @@ namespace SpaceInvaders
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            GraphManager.DrawBufferedImage(gameInstance, image, (int)vector.x, (int)vector.y);
+            graphics.DrawImage(image, (int)vector.x, (int)vector.y);
 
         }
 
@@ -94,9 +94,9 @@ namespace SpaceInvaders
                 alive = false;
                 gameInstance.particles.UnionWith(ParticleGenerator.GenerateParticle(image, base.vector));
                 mediaExplosion.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\explosion\" + Utils.rand.Next(1, 4) + ".wav")));
+                mediaExplosion.Volume = 1.0;
                 mediaExplosion.Play();
             }
-            Debug.Print("pv: " + base.pv);
 
         }
 
@@ -105,8 +105,8 @@ namespace SpaceInvaders
             if (!alive)
                 return;
             vector.x += playerSpeed * deltaT;
-            if (vector.x > GraphManager.bufferedImage.Width - image.Width)
-                vector.x = GraphManager.bufferedImage.Width - image.Width;
+            if (vector.x > gameInstance.gameSize.Width - image.Width)
+                vector.x = gameInstance.gameSize.Width - image.Width;
 
         }
         public override void MoveLeft(Game gameInstance, double deltaT)
@@ -126,8 +126,9 @@ namespace SpaceInvaders
             {
                 mediaShoot.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
                 mediaShoot.Play();
-                missile = new Missile((int)vector.x + 7, (int)vector.y - 7, true, 10);
+                missile = new Missile((int)vector.x-5 , (int)vector.y - 7, true, 10);
                 gameInstance.AddNewGameObject(missile);
+                gameInstance.AddNewGameObject(new Missile((int)vector.x + 40, (int)vector.y - 7, true, 10));
 
             }
         }

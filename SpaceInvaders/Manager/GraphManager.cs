@@ -8,34 +8,8 @@ namespace SpaceInvaders.Manager
 {
     class GraphManager
     {
-        public static Bitmap bufferedImage = new Bitmap(297, 219);//résolution du jeu avant upscale
-        private static Random rnd = new Random(DateTime.Now.Millisecond);
-        public static void Draw(Game gameInstance, Graphics graphics)
-        {
-            //ChangeColor(gameInstance);
-            Bitmap arcade = SpaceInvaders.Properties.Resources.arcade;
-            Graphics arcadeGraphics = Graphics.FromImage(arcade);
-            arcadeGraphics.DrawImage(bufferedImage, 5, 28, 297, 219);
-            arcadeGraphics.DrawImage(SpaceInvaders.Properties.Resources.arcade, 0, 0, 307, 307);
 
-            int min = gameInstance.gameSize.Width;
-            if (gameInstance.gameSize.Height < min)
-            {
-                min = gameInstance.gameSize.Height;
-            }
-            graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            graphics.DrawImage(arcade, 0, 0, min, min);
-
-            bufferedImage = new Bitmap(297, 219);
-        }
-
-        public static void DrawBufferedImage(Game gameInstance, Bitmap image, int x, int y)
-        {
-            Graphics g = Graphics.FromImage(bufferedImage);
-            g.DrawImage(image, (int)x, (int)y, image.Width, image.Height);
-        }
-
-        public static void ChangeColor(Game gameInstance)
+        public static void ChangeColor(Game gameInstance,Bitmap image)
         {
 
             foreach (GameObject gm in gameInstance.gameObjects)
@@ -48,22 +22,22 @@ namespace SpaceInvaders.Manager
                 {
                     for (int y = dy; y < dy + height; y++)
                     {
-                        if (x >= 0 && y >= 0 && x < bufferedImage.Width && y < bufferedImage.Height)
+                        if (x >= 0 && y >= 0 && x < image.Width && y < image.Height)
                         {
 
-                            if (bufferedImage.GetPixel(x, y).A >= 150)
+                            if (image.GetPixel(x, y).A >= 150)
                             {
-                                bufferedImage.SetPixel(x, y, Color.White);
+                                image.SetPixel(x, y, Color.White);
                             }
-                            if (bufferedImage.GetPixel(x, y).A < 150)
+                            if (image.GetPixel(x, y).A < 150)
                             {
-                                bufferedImage.SetPixel(x, y, Color.Empty);
+                                image.SetPixel(x, y, Color.Empty);
                             }
-                            if (bufferedImage.GetPixel(x, y).A != 0)
+                            if (image.GetPixel(x, y).A != 0)
                             {
 
-                                Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
-                                bufferedImage.SetPixel(x, y, randomColor);
+                                Color randomColor = Color.FromArgb(Utils.rand.Next(256), Utils.rand.Next(256), Utils.rand.Next(256));
+                                image.SetPixel(x, y, randomColor);
                             }
                         }
                     }
