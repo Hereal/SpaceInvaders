@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using SpaceInvaders.Manager;
 using SpaceInvaders.Particule;
 using System.Windows.Media;
+using System.IO;
 
 namespace SpaceInvaders
 {
@@ -74,6 +75,8 @@ namespace SpaceInvaders
         public static Player player;
         public static ShipGang shipGang;
         public static bool debug = false;
+        public static bool hyperDrive = false;
+        private MediaPlayer hyperDriveSound = new MediaPlayer();
         public static double deltaT;
         #endregion
 
@@ -125,21 +128,22 @@ namespace SpaceInvaders
             int start = DateTime.Now.Millisecond;
             if (player.IsAlive())
                 player.Draw(this, g);
-            foreach (GameObject gameObject in gameObjects) {
+            foreach (GameObject gameObject in gameObjects)
+            {
                 gameObject.Draw(this, g);
 
-                if(debug)
-                    g.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Red), new Rectangle((int)gameObject.vector.x, (int)gameObject.vector.y, gameObject.GetImage().Width - 1, gameObject.GetImage().Height - 1));
+                if (debug)
+                    Utils.drawGameObjectDebug(g, gameObject);
             }
 
             foreach (Particle particle in particles)
             {
                 particle.Draw(g);
             }
-            
-            if(debug)
-                g.DrawString("FPS: "+1/deltaT, new Font(System.Drawing.FontFamily.GenericSansSerif, 12f, FontStyle.Regular),new SolidBrush(System.Drawing.Color.Red), 0, 0);
-            
+            if (debug)
+                Utils.drawDebug(g);
+
+            Utils.HandleFrametime(start);
             //Console.WriteLine("frameTime: " + (DateTime.Now.Millisecond - start));
         }
 
@@ -148,6 +152,7 @@ namespace SpaceInvaders
         /// </summary>
         public void Update(double deltaT)
         {
+
             Game.deltaT = deltaT;
             shipGang.Update(this, deltaT);
             particles.UnionWith(ParticleGenerator.GenerateStars());
@@ -171,7 +176,17 @@ namespace SpaceInvaders
                 debug = !debug;
                 ReleaseKey(Keys.D);
             }
-                
+            // if h is pressed
+            if (keyPressed.Contains(Keys.H))
+            {
+                if(hyperDrive)
+                    hyperDriveSound.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\HyperdriveTrouble.wav")));
+                else
+                    hyperDriveSound.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\JumpToLightspeed.wav")));
+                hyperDriveSound.Play();
+                hyperDrive = !hyperDrive;
+                ReleaseKey(Keys.H);
+            }
 
             // update each game object
             player.Update(this, deltaT);

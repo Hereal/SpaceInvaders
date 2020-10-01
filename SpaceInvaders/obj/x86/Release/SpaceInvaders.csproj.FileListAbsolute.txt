@@ -1,0 +1,9 @@
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\bin\Release\SpaceInvaders.exe
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\bin\Release\SpaceInvaders.pdb
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Release\SpaceInvaders.csprojAssemblyReference.cache
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Release\SpaceInvaders.GameForm.resources
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Release\SpaceInvaders.Properties.Resources.resources
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Release\SpaceInvaders.csproj.GenerateResource.cache
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Release\SpaceInvaders.csproj.CoreCompileInputs.cache
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Release\SpaceInvaders.exe
+C:\Users\Herea\Documents\GitHub\SpaceInvaders\SpaceInvaders\obj\x86\Release\SpaceInvaders.pdb
