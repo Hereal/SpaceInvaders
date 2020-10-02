@@ -9,11 +9,10 @@ namespace SpaceInvaders.Objects
 {
     class MovingObject : SpaceObject
     {
-        
-        public MovingObject(int pv, Bitmap image,Vecteur2D vector) : base(pv,image,vector)
-        {
-        }
-        public virtual void MoveRight(Game gameInstance, double deltaT) {}
+
+        public MovingObject(int pv, Bitmap image, Vecteur2D vector) : base(pv, image, vector)
+        { }
+        public virtual void MoveRight(Game gameInstance, double deltaT) { }
 
         public virtual void MoveLeft(Game gameInstance, double deltaT) { }
 

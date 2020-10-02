@@ -18,14 +18,15 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
-        public ShipGang(int nbRows ,Game gameInstance){
+        public ShipGang(int nbRows, Game gameInstance)
+        {
             setShip = new List<Ship>();
 
             for (int y = 0; y < nbRows; y++)
             {
                 for (int x = 0; x < nbCollumn; x++)
                 {
-                    Ship s = new Ship(x * 60, y * 60+20, 10,getImage(y));
+                    Ship s = new Ship(x * 60, y * 60 + 20, 10, getImage(y));
                     setShip.Add(s);
                     gameInstance.AddNewGameObject(s);
                 }
@@ -41,9 +42,8 @@ namespace SpaceInvaders
             if (nbRow % 3 == 1)
                 return SpaceInvaders.Properties.Resources.tieFighter;
             return SpaceInvaders.Properties.Resources.tieBomber;
-
         }
-        public void Update(Game gameInstance ,double deltaT)
+        public void Update(Game gameInstance, double deltaT)
         {
             RemoveDead();
             if (setShip.Count > 0)
