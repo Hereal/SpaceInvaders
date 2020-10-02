@@ -10,7 +10,7 @@ namespace SpaceInvaders
     {
         public double x { get; set; }
         public double y { get; set; }
-        public double Norme { get; set; }
+        public double Norme { get; private set; }
 
         public Vecteur2D() : this(0, 0) { }
 

@@ -10,13 +10,14 @@ using System.Media;
 using System.Windows.Media;
 using System.Diagnostics;
 using SpaceInvaders.Particule;
+using SpaceInvaders.Objects;
 
 namespace SpaceInvaders
 {
     /// <summary>
     /// Dummy class for demonstration
     /// </summary>
-    class Player : GameObject
+    class Player : MovingObject
     {
         #region Fields
         /// <summary>
@@ -29,12 +30,7 @@ namespace SpaceInvaders
         /// </summary>
         private double playerSpeed = 500;
 
-        private bool alive = true;
-
-        private Bitmap image;
-
         private Missile missile = null;
-
 
         private MediaPlayer mediaShoot = new MediaPlayer();
         private MediaPlayer mediaExplosion = new MediaPlayer();
@@ -49,15 +45,8 @@ namespace SpaceInvaders
         /// </summary>
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
-        public Player(double x, double y, int pv) : base()
-        {
-            base.vector = new Vecteur2D(x, y);
-            image = SpaceInvaders.Properties.Resources.player;
-            base.pv = pv;
-
-
-
-        }
+        public Player(double x, double y, int pv) : base(pv, SpaceInvaders.Properties.Resources.player, new Vecteur2D(x, y))
+        { }
         #endregion
 
         #region Methods
@@ -66,24 +55,13 @@ namespace SpaceInvaders
         {
             if (vector.y > gameInstance.gameSize.Height)
                 alive = false;
-            if (Utils.rand.Next(0, 4000)==1)
+            if (Utils.rand.Next(0, 4000) == 1)
             {
                 mediaR2.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\R2\" + Utils.rand.Next(1, 7) + ".wav")));
                 mediaR2.Volume = 0.7;
                 mediaR2.Play();
             }
 
-        }
-
-        public override void Draw(Game gameInstance, Graphics graphics)
-        {
-            graphics.DrawImage(image, (int)vector.x, (int)vector.y,image.Width,image.Height);
-
-        }
-
-        public override bool IsAlive()
-        {
-            return alive;
         }
 
         public override void Kill(int pv, Game gameInstance)
@@ -126,17 +104,12 @@ namespace SpaceInvaders
             {
                 mediaShoot.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
                 mediaShoot.Play();
-                missile = new Missile((int)vector.x-5 , (int)vector.y - 7, true, 10);
+                missile = new Missile((int)vector.x - 5, (int)vector.y - 7, true, 10);
                 gameInstance.AddNewGameObject(missile);
                 gameInstance.AddNewGameObject(new Missile((int)vector.x + 40, (int)vector.y - 7, true, 10));
 
             }
         }
-        public override Bitmap GetImage()
-        {
-            return image;
-        }
-
         #endregion
     }
 }

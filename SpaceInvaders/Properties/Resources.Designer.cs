@@ -73,16 +73,6 @@ namespace SpaceInvaders.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap explosion {
-            get {
-                object obj = ResourceManager.GetObject("explosion", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap millenniumFalcon {
             get {
                 object obj = ResourceManager.GetObject("millenniumFalcon", resourceCulture);

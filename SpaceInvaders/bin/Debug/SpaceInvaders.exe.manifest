@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SpaceInvaders.exe" size="155584">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SpaceInvaders.exe" size="155072">
       <assemblyIdentity name="SpaceInvaders" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>aivnPfuwSxt86stduCzNRpQp7MQ=</dsig:DigestValue>
+        <dsig:DigestValue>97f7QttFrEOIMLARBzkgUBdaD14=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -60,15 +60,6 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>HnAgGWpRmZui1hru62sMV0bZWqc=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\explosion.png" size="6278">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>CVHOsiUK6eZX8nG3eAB7LG9t9zU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Resources\player.png" size="10408">

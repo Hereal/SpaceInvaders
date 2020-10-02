@@ -78,10 +78,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObject\Bunker.cs" />
-    <Compile Include="GameObject\Missile.cs" />
-    <Compile Include="GameObject\Ship.cs" />
-    <Compile Include="GameObject\Player.cs" />
+    <Compile Include="Objects\Bunker.cs" />
+    <Compile Include="Objects\Missile.cs" />
+    <Compile Include="Objects\MovingObject.cs" />
+    <Compile Include="Objects\Ship.cs" />
+    <Compile Include="Objects\Player.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,7 +91,7 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="Manager\GraphManager.cs" />
+    <Compile Include="Objects\SpaceObject.cs" />
     <Compile Include="Manager\Utils.cs" />
     <Compile Include="Particle\ParticleGenerator.cs" />
     <Compile Include="Particle\Particle.cs" />
@@ -125,7 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\bunker.png" />
-    <Content Include="Resources\explosion.png" />
     <None Include="Resources\tieBomber.png" />
     <None Include="Resources\tieInterceptor.png" />
     <None Include="Resources\tieFighter.png" />

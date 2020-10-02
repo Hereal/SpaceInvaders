@@ -49,11 +49,11 @@ namespace SpaceInvaders
             if (setShip.Count > 0)
             {
                 int min = (int)setShip[0].vector.x;
-                int max = (int)setShip[0].vector.x + (int)setShip[0].GetImage().Width;
+                int max = (int)setShip[0].vector.x + (int)setShip[0].image.Width;
                 for (int i = 1; i < setShip.Count; i++)
                 {
                     int xmin = (int)setShip[i].vector.x;
-                    int xmax = (int)setShip[i].vector.x + (int)setShip[i].GetImage().Width;
+                    int xmax = (int)setShip[i].vector.x + (int)setShip[i].image.Width;
                     if (xmin < min)
                         min = xmin;
                     if (xmax > max)

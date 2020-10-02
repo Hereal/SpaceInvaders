@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceInvaders.Objects;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -48,7 +49,11 @@ namespace SpaceInvaders.Manager
 
         public static void drawGameObjectDebug(Graphics g, GameObject gm)
         {
-            g.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Red), new Rectangle((int)gm.vector.x, (int)gm.vector.y, gm.GetImage().Width - 1, gm.GetImage().Height - 1));
+            if (gm is SpaceObject)
+            {
+                SpaceObject so = (SpaceObject)gm;
+                g.DrawRectangle(new System.Drawing.Pen(System.Drawing.Color.Red), new Rectangle((int)so.vector.x, (int)so.vector.y, so.image.Width - 1, so.image.Height - 1));
+            }
         }
 
         public static void drawDebug(Graphics g)
