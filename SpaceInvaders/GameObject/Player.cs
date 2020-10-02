@@ -77,7 +77,7 @@ namespace SpaceInvaders
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            graphics.DrawImage(image, (int)vector.x, (int)vector.y);
+            graphics.DrawImage(image, (int)vector.x, (int)vector.y,image.Width,image.Height);
 
         }
 

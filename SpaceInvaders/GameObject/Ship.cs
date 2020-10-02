@@ -65,7 +65,7 @@ namespace SpaceInvaders
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            graphics.DrawImage(image, (int)vector.x, (int)vector.y);
+            graphics.DrawImage(image, (int)vector.x, (int)vector.y, image.Width, image.Height);
         }
 
         public override bool IsAlive()
@@ -84,6 +84,7 @@ namespace SpaceInvaders
                 mediaExplosion.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\explosion\" + Utils.rand.Next(1, 4) + ".wav")));
                 mediaExplosion.Volume = 1.0;
                 mediaExplosion.Play();
+                gameInstance.score += 10;
             }
         }
 

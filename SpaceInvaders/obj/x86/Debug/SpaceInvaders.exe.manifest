@@ -49,19 +49,10 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>G5tOBjIYvnHL8+BC8sJNGHlMfLY=</dsig:DigestValue>
+        <dsig:DigestValue>aivnPfuwSxt86stduCzNRpQp7MQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Resources\arcade.png" size="16585">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>2qiGxgTcdHyIimsbXQj8g8QPLw8=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="Resources\bunker.png" size="1816">
     <hash>
       <dsig:Transforms>

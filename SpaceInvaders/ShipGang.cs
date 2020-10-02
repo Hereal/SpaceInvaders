@@ -25,7 +25,7 @@ namespace SpaceInvaders
             {
                 for (int x = 0; x < nbCollumn; x++)
                 {
-                    Ship s = new Ship(x * 60, y * 60, 10,getImage(y));
+                    Ship s = new Ship(x * 60, y * 60+20, 10,getImage(y));
                     setShip.Add(s);
                     gameInstance.AddNewGameObject(s);
                 }

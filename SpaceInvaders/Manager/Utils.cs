@@ -59,5 +59,9 @@ namespace SpaceInvaders.Manager
 
 
         }
+        public static void drawScore(Graphics g,Game gameInstance)
+        {
+            g.DrawString("SCORE: " + gameInstance.score, new Font(System.Drawing.FontFamily.GenericSansSerif, 18f, FontStyle.Regular), new SolidBrush(System.Drawing.Color.Blue), 1100, 0);
+        }
     }
 }

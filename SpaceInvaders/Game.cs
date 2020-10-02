@@ -62,22 +62,13 @@ namespace SpaceInvaders
         /// </summary>
         public static Game game { get; private set; }
 
-        /// <summary>
-        /// A shared black brush
-        /// </summary>
-        private static System.Drawing.Brush blackBrush = new SolidBrush(System.Drawing.Color.Black);
-
-        /// <summary>
-        /// A shared simple font
-        /// </summary>
-        private static Font defaultFont = new Font("Times New Roman", 24, FontStyle.Bold, GraphicsUnit.Pixel);
-
         public static Player player;
         public static ShipGang shipGang;
         public static bool debug = false;
         public static bool hyperDrive = false;
         private MediaPlayer hyperDriveSound = new MediaPlayer();
         public static double deltaT;
+        public int score = 0;
         #endregion
 
 
@@ -142,7 +133,7 @@ namespace SpaceInvaders
             }
             if (debug)
                 Utils.drawDebug(g);
-
+            Utils.drawScore(g, this);
             Utils.HandleFrametime(start);
             //Console.WriteLine("frameTime: " + (DateTime.Now.Millisecond - start));
         }
@@ -155,6 +146,7 @@ namespace SpaceInvaders
 
             Game.deltaT = deltaT;
             shipGang.Update(this, deltaT);
+            // add stars
             particles.UnionWith(ParticleGenerator.GenerateStars());
             // add new game objects
             gameObjects.UnionWith(pendingNewGameObjects);

@@ -47,7 +47,7 @@ namespace SpaceInvaders.Particule
             Color color = Color.White;
             if (Game.hyperDrive)
             {
-                random = 1; minSpeed = 800; maxSpeed = 1600; minSize = 1; maxSize = 2; color = Color.FromArgb(255, 100, 100, 255);
+                random = 5; minSpeed = 800; maxSpeed = 1600; minSize = 1; maxSize = 2; color = Color.FromArgb(255, 100, 100, 255);
             }
             if (Utils.rand.Next(0, random) == 0)
             {
@@ -55,6 +55,10 @@ namespace SpaceInvaders.Particule
                 Vecteur2D direction = new Vecteur2D(Utils.rand.Next(-1, 1), Utils.rand.Next(minSpeed, maxSpeed));
                 int randSize = Utils.rand.Next(minSize, maxSize);
                 particleSet.Add(new Particle(position, direction, color, 1, 255, 10000, randSize));
+                if (Game.hyperDrive)
+                    for(int i = 1; i < 20; i+=2)
+                        particleSet.Add(new Particle(position - new Vecteur2D(0, i), direction, Color.White, 1, 255, 10000, randSize));
+                    
             }
             return particleSet;
         }

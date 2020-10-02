@@ -124,12 +124,12 @@
     <None Include="SpaceInvaders_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\arcade.png" />
     <Content Include="Resources\bunker.png" />
     <Content Include="Resources\explosion.png" />
     <None Include="Resources\tieBomber.png" />
     <None Include="Resources\tieInterceptor.png" />
     <None Include="Resources\tieFighter.png" />
+    <None Include="Resources\millenniumFalcon.png" />
     <Content Include="Resources\shotUp.png" />
     <Content Include="Resources\player.png" />
     <Content Include="Resources\shotDown.png" />
