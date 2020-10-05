@@ -61,7 +61,7 @@ namespace SpaceInvaders
                 gameInstance.particles.UnionWith(ParticleGenerator.GenerateParticle(image, base.vector));
                 alive = false;
 
-                mediaExplosion.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\explosion\" + Utils.rand.Next(1, 4) + ".wav")));
+                mediaExplosion.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\explosion\" + Utils.rand.Next(1, 4) + ".wav")));
                 mediaExplosion.Volume = 1.0;
                 mediaExplosion.Play();
                 gameInstance.score += 10;
@@ -85,7 +85,7 @@ namespace SpaceInvaders
                 if (Utils.rand.Next(0, 10000) == 1)
                 {
 
-                    mediaShoot.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
+                    mediaShoot.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\shoot.wav")));
                     mediaShoot.Play();
                     missile = new Missile((int)vector.x + 7, (int)vector.y + 16, false, 10);
                     gameInstance.AddNewGameObject(missile);

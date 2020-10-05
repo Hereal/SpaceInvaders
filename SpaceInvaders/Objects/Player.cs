@@ -46,7 +46,8 @@ namespace SpaceInvaders
         /// <param name="x">start position x</param>
         /// <param name="y">start position y</param>
         public Player(double x, double y, int pv) : base(pv, SpaceInvaders.Properties.Resources.player, new Vecteur2D(x, y))
-        { }
+        {
+        }
         #endregion
 
         #region Methods
@@ -57,7 +58,7 @@ namespace SpaceInvaders
                 alive = false;
             if (Utils.rand.Next(0, 4000) == 1)
             {
-                mediaR2.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\R2\" + Utils.rand.Next(1, 7) + ".wav")));
+                mediaR2.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\R2\" + Utils.rand.Next(1, 7) + ".wav")));
                 mediaR2.Volume = 0.7;
                 mediaR2.Play();
             }
@@ -71,7 +72,7 @@ namespace SpaceInvaders
             {
                 alive = false;
                 gameInstance.particles.UnionWith(ParticleGenerator.GenerateParticle(image, base.vector));
-                mediaExplosion.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\explosion\" + Utils.rand.Next(1, 4) + ".wav")));
+                mediaExplosion.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\explosion\" + Utils.rand.Next(1, 4) + ".wav")));
                 mediaExplosion.Volume = 1.0;
                 mediaExplosion.Play();
             }
@@ -102,7 +103,7 @@ namespace SpaceInvaders
                 return;
             if (missile == null || missile.IsAlive() == false)
             {
-                mediaShoot.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\shoot.wav")));
+                mediaShoot.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\shoot.wav")));
                 mediaShoot.Play();
                 missile = new Missile((int)vector.x - 5, (int)vector.y - 7, true, 10);
                 gameInstance.AddNewGameObject(missile);

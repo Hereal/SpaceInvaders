@@ -121,9 +121,6 @@
   <data name="player" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\player.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shoot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sound\shoot.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="tieFighter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tieFighter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -150,5 +147,53 @@
   </data>
   <data name="millenniumFalcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\millenniumFalcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BattleAlarm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\BattleAlarm.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Explosion_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\Explosion_1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Explosion_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\Explosion_2.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Explosion_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\Explosion_3.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Explosion_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\Explosion_4.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="HyperdriveTrouble" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\HyperdriveTrouble.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="JumpToLightspeed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\JumpToLightspeed.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="R2_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\R2_1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="R2_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\R2_2.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="R2_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\R2_3.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="R2_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\R2_4.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="R2_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\R2_5.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="R2_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\R2_6.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="R2_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\R2_7.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="shoot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\shoot.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="theme" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sound\theme.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

@@ -126,6 +126,7 @@ namespace SpaceInvaders
         private void GameForm_Load(object sender, EventArgs e)
         {
             Utils.rand.Next();
+            Utils.initSound();
             Game.player = new Player(650, 600, 10);
             game.AddNewGameObject(Game.player);
 
@@ -137,12 +138,12 @@ namespace SpaceInvaders
             game.AddNewGameObject(new Bunker(700, 500, 10000));
             game.AddNewGameObject(new Bunker(900, 500, 10000));
 
-            theme.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\theme.wav")));
+            theme.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\theme.wav")));
             theme.Volume = 0.2;
             theme.MediaEnded += new EventHandler(Media_Ended);
             //theme.Play();
 
-            begining.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\BattleAlarm.wav")));
+            begining.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\BattleAlarm.wav")));
             begining.Volume = 0.5;
             begining.Play();
 

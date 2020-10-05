@@ -117,24 +117,20 @@ namespace SpaceInvaders
         public void Draw(Graphics g)
         {
             int start = DateTime.Now.Millisecond;
-            if (player.IsAlive())
-                player.Draw(this, g);
+            if (player.IsAlive()) player.Draw(this, g);
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Draw(this, g);
-
                 if (debug)
-                    Utils.drawGameObjectDebug(g, gameObject);
+                    DebugManager.drawGameObjectDebug(g, gameObject);
             }
 
-            foreach (Particle particle in particles)
-            {
-                particle.Draw(g);
-            }
+            foreach (Particle particle in particles) particle.Draw(g);
+
             if (debug)
-                Utils.drawDebug(g);
+                DebugManager.drawDebug(g);
             Utils.drawScore(g, this);
-            Utils.HandleFrametime(start);
+            DebugManager.HandleFrametime(start);
             //Console.WriteLine("frameTime: " + (DateTime.Now.Millisecond - start));
         }
 
@@ -163,18 +159,18 @@ namespace SpaceInvaders
             if (keyPressed.Contains(Keys.Right))
                 player.MoveRight(game, deltaT);
             // if d is pressed
-            if (keyPressed.Contains(Keys.D))
+            if (keyPressed.Contains(Keys.F3))
             {
                 debug = !debug;
-                ReleaseKey(Keys.D);
+                ReleaseKey(Keys.F3);
             }
             // if h is pressed
             if (keyPressed.Contains(Keys.H))
             {
-                if(hyperDrive)
-                    hyperDriveSound.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\HyperdriveTrouble.wav")));
+                if (hyperDrive)
+                    hyperDriveSound.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\HyperdriveTrouble.wav")));
                 else
-                    hyperDriveSound.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\sound\JumpToLightspeed.wav")));
+                    hyperDriveSound.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\JumpToLightspeed.wav")));
                 hyperDriveSound.Play();
                 hyperDrive = !hyperDrive;
                 ReleaseKey(Keys.H);
@@ -182,14 +178,9 @@ namespace SpaceInvaders
 
             // update each game object
             player.Update(this, deltaT);
-            foreach (GameObject gameObject in gameObjects)
-            {
-                gameObject.Update(this, deltaT);
-            }
-            foreach (Particle particle in particles)
-            {
-                particle.Update(this, deltaT);
-            }
+            foreach (GameObject gameObject in gameObjects) gameObject.Update(this, deltaT);
+            foreach (Particle particle in particles) particle.Update(this, deltaT);
+
 
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());

@@ -56,7 +56,7 @@ namespace SpaceInvaders.Particule
                 int randSize = Utils.rand.Next(minSize, maxSize);
                 particleSet.Add(new Particle(position, direction, color, 1, 255, 10000, randSize));
                 if (Game.hyperDrive)
-                    for(int i = 1; i < 20; i+=2)
+                    for(int i = 1; i < 40; i+=2)
                         particleSet.Add(new Particle(position - new Vecteur2D(0, i), direction, Color.White, 1, 255, 10000, randSize));
                     
             }
