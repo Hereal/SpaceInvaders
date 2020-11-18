@@ -147,6 +147,7 @@
     <None Include="Resources\tieInterceptor.png" />
     <None Include="Resources\tieFighter.png" />
     <None Include="Resources\millenniumFalcon.png" />
+    <None Include="Resources\heart.png" />
     <Content Include="Resources\shotUp.png" />
     <Content Include="Resources\player.png" />
     <Content Include="Resources\shotDown.png" />

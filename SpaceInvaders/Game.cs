@@ -66,8 +66,11 @@ namespace SpaceInvaders
         public static ShipGang shipGang;
         public static bool debug = false;
         public static bool hyperDrive = false;
+        public static bool pause = false;
+        public int nbLife = 3;
         private MediaPlayer hyperDriveSound = new MediaPlayer();
-        public static double deltaT;
+        private MediaPlayer theme = new MediaPlayer();
+        private MediaPlayer begining = new MediaPlayer();
         public int score = 0;
         #endregion
 
@@ -81,8 +84,7 @@ namespace SpaceInvaders
         /// <returns></returns>
         public static Game CreateGame(Size gameSize)
         {
-            if (game == null)
-                game = new Game(gameSize);
+            if (game == null) game = new Game(gameSize);
             return game;
         }
 
@@ -116,76 +118,198 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
-            int start = DateTime.Now.Millisecond;
+            if (!pause)
+            {
+                int start = DateTime.Now.Millisecond;
+                DrawGame(g);
+                DebugManager.HandleFrametime(start);
+            }
+            else if (nbLife == 0 && shipGang.IsAlive()) Utils.DrawWin(g, this);
+            else if (nbLife == 0 &&!shipGang.IsAlive()) Utils.DrawRestart(g,this);
+            else Utils.DrawPause(g, this);
+        }
+
+        /// <summary>
+        /// Draw the game
+        /// </summary>
+        /// <param name="g"></param>
+        private void DrawGame(Graphics g)
+        {
             if (player.IsAlive()) player.Draw(this, g);
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Draw(this, g);
-                if (debug)
-                    DebugManager.drawGameObjectDebug(g, gameObject);
+                if (debug) DebugManager.DrawGameObjectDebug(g, gameObject);
             }
-
             foreach (Particle particle in particles) particle.Draw(g);
+            if (debug) DebugManager.DrawDebug(g);
+            Utils.DrawATH(g, this);
 
-            if (debug)
-                DebugManager.drawDebug(g);
-            Utils.drawScore(g, this);
-            DebugManager.HandleFrametime(start);
-            //Console.WriteLine("frameTime: " + (DateTime.Now.Millisecond - start));
         }
+
+
+
 
         /// <summary>
         /// Update game
         /// </summary>
         public void Update(double deltaT)
         {
-
-            Game.deltaT = deltaT;
-            shipGang.Update(this, deltaT);
-            // add stars
-            particles.UnionWith(ParticleGenerator.GenerateStars());
-            // add new game objects
-            gameObjects.UnionWith(pendingNewGameObjects);
-            pendingNewGameObjects.Clear();
-
-
-            // if space is pressed
-            if (keyPressed.Contains(Keys.Space))
-                player.Shoot(game, deltaT);
-            // if left is pressed
-            if (keyPressed.Contains(Keys.Left))
-                player.MoveLeft(game, deltaT);
-            // if right is pressed
-            if (keyPressed.Contains(Keys.Right))
-                player.MoveRight(game, deltaT);
-            // if d is pressed
-            if (keyPressed.Contains(Keys.F3))
+            if (!pause)
             {
-                debug = !debug;
-                ReleaseKey(Keys.F3);
-            }
-            // if h is pressed
-            if (keyPressed.Contains(Keys.H))
-            {
-                if (hyperDrive)
-                    hyperDriveSound.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\HyperdriveTrouble.wav")));
-                else
-                    hyperDriveSound.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\JumpToLightspeed.wav")));
-                hyperDriveSound.Play();
-                hyperDrive = !hyperDrive;
-                ReleaseKey(Keys.H);
-            }
+                shipGang.Update(this, deltaT);
+                if (shipGang.IsAlive())
+                {
+                    pause = true;
+                    nbLife = 0;
+                }
+                particles.UnionWith(ParticleGenerator.GenerateStars());
+                gameObjects.UnionWith(pendingNewGameObjects);
+                pendingNewGameObjects.Clear();
 
-            // update each game object
+                UpdateEachObjects(deltaT);
+                RemoveDeadObject();
+            }
+            HandleKeys(deltaT);
+        }
+
+        /// <summary>
+        /// Handle the key press
+        /// </summary>
+        /// <param name="deltaT"> Value relative to the time required to render an image </param>
+        private void HandleKeys(double deltaT)
+        {
+            if (!pause)
+            {
+                if (keyPressed.Contains(Keys.Space)) player.Shoot(game, deltaT);
+                if (keyPressed.Contains(Keys.Left)) player.MoveLeft(game, deltaT);
+                if (keyPressed.Contains(Keys.Right)) player.MoveRight(game, deltaT);
+                if (keyPressed.Contains(Keys.F3)) F3Action();
+                if (keyPressed.Contains(Keys.H)) HandleHyperDrive();
+            }
+            if (keyPressed.Contains(Keys.P)) PAction();
+            if (nbLife == 0 && keyPressed.Contains(Keys.Space)) SpaceRestartAction();
+        }
+
+        /// <summary>
+        /// Perform F3 key actions
+        /// </summary>
+        private void F3Action()
+        {
+            debug = !debug;
+            ReleaseKey(Keys.F3);
+        }
+
+        /// <summary>
+        /// Perform p key actions
+        /// </summary>
+        private void PAction()
+        {
+            pause = !pause;
+            ReleaseKey(Keys.P);
+        }
+
+        /// <summary>
+        /// Perform Space key actions to restart
+        /// </summary>
+        private void SpaceRestartAction()
+        {
+            nbLife = 3;
+            StartNewGame(false);
+            ReleaseKey(Keys.Space);
+            pause = false;
+        }
+
+
+        /// <summary>
+        /// Enable or disable the hyper drive
+        /// </summary>
+        private void HandleHyperDrive()
+        {
+            if (hyperDrive) hyperDriveSound.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\HyperdriveTrouble.wav")));
+            else hyperDriveSound.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\JumpToLightspeed.wav")));
+            hyperDriveSound.Play();
+            hyperDrive = !hyperDrive;
+            ReleaseKey(Keys.H);
+        }
+
+
+        /// <summary>
+        /// Update all the objects
+        /// </summary>
+        /// <param name="deltaT"> Value relative to the time required to render an image </param>
+        private void UpdateEachObjects(double deltaT)
+        {
             player.Update(this, deltaT);
             foreach (GameObject gameObject in gameObjects) gameObject.Update(this, deltaT);
             foreach (Particle particle in particles) particle.Update(this, deltaT);
+        }
 
 
-            // remove dead objects
+
+        /// <summary>
+        /// Remove all the dead objects
+        /// </summary>
+        private void RemoveDeadObject()
+        {
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
             particles.RemoveWhere(generator => !generator.IsAlive());
+        }
 
+
+
+        /// <summary>
+        /// Start a new game
+        /// </summary>
+        /// <param name="loadSound">Should he reload the data</param>
+        public void StartNewGame(bool loadSound)
+        {
+            gameObjects = new HashSet<GameObject>();
+            particles = new HashSet<Particle>();
+            if(loadSound) Utils.InitSound();
+            player = new Player(650, 600, 10);
+            game.AddNewGameObject(Game.player);
+            shipGang = new ShipGang(4, game);
+            GenerateBunker();
+            playSound();
+        }
+
+        /// <summary>
+        /// Generate all the bunkers
+        /// </summary>
+        private void GenerateBunker()
+        {
+            game.AddNewGameObject(new Bunker(100, 500, 10000));
+            game.AddNewGameObject(new Bunker(300, 500, 10000));
+            game.AddNewGameObject(new Bunker(500, 500, 10000));
+            game.AddNewGameObject(new Bunker(700, 500, 10000));
+            game.AddNewGameObject(new Bunker(900, 500, 10000));
+        }
+
+        /// <summary>
+        /// Play sounds at the beginning
+        /// </summary>
+        private void playSound()
+        {
+            theme.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\theme.wav")));
+            theme.Volume = 0.2;
+            theme.MediaEnded += new EventHandler(Media_Ended);
+            theme.Play();
+
+            begining.Open(new Uri(Path.Combine(Environment.CurrentDirectory, @".\sound\BattleAlarm.wav")));
+            begining.Volume = 0.5;
+            begining.Play();
+        }
+
+        /// <summary>
+        /// When the theme as ended it start again.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Media_Ended(object sender, EventArgs e)
+        {
+            theme.Position = TimeSpan.Zero;
+            theme.Play();
         }
         #endregion
     }
