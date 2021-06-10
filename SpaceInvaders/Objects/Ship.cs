@@ -46,7 +46,6 @@ namespace SpaceInvaders
         public override void Update(Game gameInstance, double deltaT)
         {
             Shoot(gameInstance, deltaT);
-            Console.WriteLine(vector.y + image.Height);
             if (vector.y + image.Height >= 600)
             {
                 Game.pause = true;
